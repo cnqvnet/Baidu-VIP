@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         百度网盘不限速下载-🚀文武PanDownload🚀
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  一款百度网盘加速下载脚本，不限制速度下载的百度网盘解析脚本，可长期稳定使用
 // @antifeature  ads
 // @author       文武科技社
@@ -28,8 +28,8 @@
 // @require           https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/layui.min.js
 // @require           https://unpkg.com/sweetalert/dist/sweetalert.min.js
 // @resource          layuiCSS https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/css/layui.css
-// @downloadURL https://wangdu.site/PanDownload.user.js
-// @updateURL https://wangdu.site/PanDownload.user.js
+// @downloadURL https://update.greasyfork.org/scripts/517728/百度网盘不限速下载-文武pandownload.user.js
+// @updateURL https://update.greasyfork.org/scripts/517728/百度网盘不限速下载-文武pandownload.user.js
 // ==/UserScript==
 (function () {
   'use strict';
