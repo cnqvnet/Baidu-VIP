@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         百度网盘不限速下载-🚀文武PanDownload🚀
+// @name         🚀文武PanDownload🚀-网盘直链下载助手
 // @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  一款百度网盘加速下载脚本，不限制速度下载的百度网盘解析脚本，可长期稳定使用
+// @version      1.2
+// @description  获取网盘直链下载地址，配合 Gopeed 可长期稳定使用
 // @antifeature  ads
 // @author       文武科技社
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
