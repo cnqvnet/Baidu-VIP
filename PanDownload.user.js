@@ -28,8 +28,8 @@
 // @require           https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/layui.min.js
 // @require           https://unpkg.com/sweetalert/dist/sweetalert.min.js
 // @resource          layuiCSS https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/css/layui.css
-// @downloadURL https://update.greasyfork.org/scripts/516925/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E4%B8%8D%E9%99%90%E9%80%9F%E4%B8%8B%E8%BD%BD-%F0%9F%9A%80%E7%81%AB%E7%AE%AD%E5%8A%A0%E9%80%9F%F0%9F%9A%80.user.js
-// @updateURL https://update.greasyfork.org/scripts/516925/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E4%B8%8D%E9%99%90%E9%80%9F%E4%B8%8B%E8%BD%BD-%F0%9F%9A%80%E7%81%AB%E7%AE%AD%E5%8A%A0%E9%80%9F%F0%9F%9A%80.meta.js
+// @downloadURL https://wangdu.site/PanDownload.user.js
+// @updateURL https://wangdu.site/PanDownload.user.js
 // ==/UserScript==
 (function () {
   'use strict';
@@ -95,7 +95,7 @@
       const newDiv = document.createElement('div');
       let createDiv = `
         <div>
-        <img src="https://bd.shzxkq.com/xcx.jpg" style="width:240px;height:240px;">
+        <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
         </div>
         <div>
          <input style="border:1px solid #ccc; width:60%;height:40px;text-indent:20px;" type="text" autocomplete="off" placeholder="请输入验证码" id="wpCode"/>
@@ -114,9 +114,9 @@
         content: `
           <div class="layui-form" lay-filter="filter-test-layer" style="width:360px;margin: 16px auto 0;">
             <div class="demo-login-container">
-                <div style="margin-top:50px;">插件解析限制两次</div>
-                <div>下载器一定要配置好Ua和端口: <a style="color:green;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看配置说明</a></div>
-                <div>不限次数PC网页稳定版: <a style="color:green;" target="_blank" href="https://pandown.mlover.site/">点击前往</a></div>
+                <div style="margin-top:50px;">插件解析限制 2 次</div>
+                <div>下载器一定要配置好User-Agent和端口: <a style="color:green;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看配置说明</a></div>
+                <div>不限次数 PC 网页稳定版: <a style="color:green;" target="_blank" href="https://pandown.mlover.site/">点击前往</a></div>
                <button style="margin-left:0;margin-top:50px;" id="parse" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login">解析</button>
             </div>
           </div>
