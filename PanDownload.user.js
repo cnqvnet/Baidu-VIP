@@ -1,13 +1,12 @@
 // ==UserScript==
-// @name         🚀文武PanDownload🚀-网盘直链下载助手
+// @name         文武解析-Gopeed网盘直链获取助手
 // @namespace    http://tampermonkey.net/
-// @version      1.2
-// @description  获取网盘直链下载地址，配合 Gopeed 可长期稳定使用
-// @antifeature  ads
-// @author       文武科技社
+// @version      1.0
+// @description  3G以下文件（不支持文件夹解析及批量解析）解析网盘直链下载地址，配合 Gopeed 实现不限速下载
+// @author       dongyubin
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @license           MIT
-// @icon              https://nd-static.bdstatic.com/m-static/v20-main/home/img/icon-home-new.b4083345.png
+// @icon              https://fk.wwkejishe.top/uploads/images/6e798005b00ce678782af4e6931f4374.png
 // @match             *://pan.baidu.com/*
 // @match             *://yun.baidu.com/*
 // @match             *://pan.baidu.com/disk/home*
@@ -28,8 +27,9 @@
 // @require           https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/layui.min.js
 // @require           https://unpkg.com/sweetalert/dist/sweetalert.min.js
 // @resource          layuiCSS https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/css/layui.css
-// @downloadURL https://update.greasyfork.org/scripts/517728/百度网盘不限速下载-文武pandownload.user.js
-// @updateURL https://update.greasyfork.org/scripts/517728/百度网盘不限速下载-文武pandownload.user.js
+// @antifeature  ads
+// @antifeature    membership
+// @antifeature    referral-link
 // ==/UserScript==
 (function () {
   'use strict';
@@ -64,7 +64,7 @@
     $('#downbtn_share').click(function () {
       swal({
         title: '提示',
-        text: '请先保存到自己的网盘后，从网盘里解析!',
+        text: '请先保存到自己的网盘后，在网盘里解析下载!',
         icon: 'warning',
       });
       return false;
@@ -100,7 +100,6 @@
         <div>
          <input style="border:1px solid #ccc; width:60%;height:40px;text-indent:20px;" type="text" autocomplete="off" placeholder="请输入验证码" id="wpCode"/>
         </div>
-
         `;
       newDiv.innerHTML = createDiv;
 
@@ -115,7 +114,7 @@
           <div class="layui-form" lay-filter="filter-test-layer" style="width:360px;margin: 16px auto 0;">
             <div class="demo-login-container">
                 <div style="margin-top:50px;">插件解析限制 2 次</div>
-                <div>下载器一定要配置好User-Agent和端口: <a style="color:green;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看配置说明</a></div>
+                <div>下载器一定要配置好 User-Agent 和端口: <a style="color:green;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看下载器配置教程说明</a></div>
                 <div>不限次数 PC 网页稳定版: <a style="color:green;" target="_blank" href="https://pandown.mlover.site/">点击前往</a></div>
                <button style="margin-left:0;margin-top:50px;" id="parse" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login">解析</button>
             </div>
@@ -127,19 +126,18 @@
           // 表单提交事件
           form.on('submit(demo-login)', async function (data) {
             $('#parse').html('<p>正在解析中请稍后...</p>');
-            //let field = data.field; // 获取表单字段值
             let canDown = await testDownLoad();
 
             if (!canDown) {
               layer.close(openLayer);
               swal({
-                title: "下载加速器",
-                text: '请先安装下载器并打开运行，点击按钮下载加速下载器。',
+                title: "下载Gopeed加速器",
+                text: '请先安装Gopeed下载器并打开运行，点击按钮下载Gopeed加速下载器。',
                 icon: 'warning',
                 type: "warning",
                 showCancelButton: true,
                 showConfirmButton: true,
-                confirmButtonText: '点击下载',
+                confirmButtonText: '点击下载Gopeed',
                 confirmButtonColor: "#dd6b55",
               }).then(function () {
                 window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
@@ -170,9 +168,8 @@
   }
   const config = {
     main_url: 'https://aifenxiang.net.cn:8081',
-    //main_url: 'http://127.0.0.1:8081',
     bd_password: '1234',
-    title_name: '文武PanDownload加速',
+    title_name: '文武解析',
   };
   function share_one_baidu(openLayer, code) {
     let select = Object.keys(selectList());
@@ -284,7 +281,7 @@
                   });
                   setTimeout(() => {
                     $('#parse').html('<p>解析</p>');
-                    layer.alert('解析次数已达上限，不限次数稳定版！地址：https://pandown.mlover.site', {
+                    layer.alert('解析次数已达上限，不限次数稳定版！', {
                       title: '提示',
                     }, function () {
                       window.open('https://pandown.mlover.site');
@@ -350,7 +347,7 @@
             layer.close(laysermsg);
             $('#parse').html('<p>解析</p>');
             swal({
-              text: '文件大于3G,插件暂不支持下载,请前往PC网页版下载！',
+              text: '文件大于 3G，插件暂不支持下载，请前往 PC 网页版下载！',
               icon: 'warning',
             });
             return false;
@@ -500,7 +497,4 @@
         return false;
       })
   }
-
-
-  // Your code here...
 })();
