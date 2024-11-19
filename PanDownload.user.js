@@ -1,40 +1,54 @@
 // ==UserScript==
-// @name         文武解析-Gopeed网盘直链获取助手
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  3G以下文件（不支持文件夹解析及批量解析）解析网盘直链下载地址，配合 Gopeed 实现不限速下载
-// @author       dongyubin
-// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @name              文武Download-直链的云盘助手
+// @namespace         https://github.com/dongyubin/Baidu-VIP
+// @version           1.0
+// @description       提取单文件高速直链、便捷使用的脚本助手，支持 Gopeed 多线程下载工具。向广大网友免费交流学习使用，探索使用脚本的乐趣！
+// @author            dongyubin
+// @homepage          https://fk.wwkejishe.top/buy/23
 // @license           MIT
 // @icon              https://fk.wwkejishe.top/uploads/images/6e798005b00ce678782af4e6931f4374.png
+// @require           https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.18/layui.min.js
+// @resource          layuiCSS https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.18/css/layui.css
+// @require           https://unpkg.com/sweetalert/dist/sweetalert.min.js
 // @match             *://pan.baidu.com/*
 // @match             *://yun.baidu.com/*
 // @match             *://pan.baidu.com/disk/home*
 // @match             *://yun.baidu.com/disk/home*
+// @match             *://pan.baidu.com/disk/timeline*
+// @match             *://yun.baidu.com/disk/timeline*
 // @match             *://pan.baidu.com/disk/main*
 // @match             *://yun.baidu.com/disk/main*
+// @match             *://pan.baidu.com/disk/base*
+// @match             *://yun.baidu.com/disk/base*
 // @match             *://pan.baidu.com/s/*
 // @match             *://yun.baidu.com/s/*
+// @match             *://pan.baidu.com/aipan/*
+// @match             *://yun.baidu.com/aipan/*
 // @match             *://pan.baidu.com/share/*
 // @match             *://yun.baidu.com/share/*
-// @connect           baidu.com
+// @match             *://openapi.baidu.com/*
 // @connect           aifenxiang.net.cn
+// @connect           baidu.com
+// @connect           *
 // @connect           127.0.0.1
 // @grant             GM_cookie
 // @grant             GM_addStyle
 // @grant             GM_getResourceText
 // @grant             GM_xmlhttpRequest
-// @require           https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/layui.min.js
-// @require           https://unpkg.com/sweetalert/dist/sweetalert.min.js
-// @resource          layuiCSS https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.14/css/layui.css
-// @antifeature  ads
-// @antifeature    membership
-// @antifeature    referral-link
+// @antifeature       ads
+// @antifeature       membership
+// @antifeature       referral-link
 // ==/UserScript==
 (function () {
   'use strict';
-  const layuicss = GM_getResourceText('layuiCSS');
-  GM_addStyle(layuicss);
+  const layuiCss = GM_getResourceText('layuiCSS');
+  GM_addStyle(layuiCss);
+  const wwConfig = {
+    mainUrl: 'https://aifenxiang.net.cn:8081',
+    bdPassword: '1234',
+    titleName: '文武Download',
+    goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks'
+  };
   layui.use(['layer'], async function () {
     var layer = layui.layer,
       $ = layui.$;
@@ -42,25 +56,24 @@
     if (location.href.startsWith('https://pan.baidu.com/s/')) {
       $('.x-button-box').prepend(
         '<a class="g-button" id="downbtn_share" style="background-color: #6800ff;color: #fff;border:none;"  href="javascript:;" ><span class="g-button-right"><em style="top:0;" class="icon icon-download" title=""></em><lable class="text" style="width: auto;">' +
-        config.title_name +
+        wwConfig.titleName +
         '</lable></span></a>'
       );
     } else {
       if ($('.tcuLAu').is('*')) {
         $('.tcuLAu').prepend(
           '<span class="g-dropdown-button"><a id="downbtn_main"  style=" margin-right: 10px;color: #fff;background-color: #fc5531;border:none;" id="downbtn_main" class="g-button" ><span class="g-button-right"><em style="top:0;" class="icon icon-download" ></em><lable class="text" style="width: auto;">' +
-          config.title_name +
+          wwConfig.titleName +
           '</lable></span></a></span>'
         );
       } else {
         $('.wp-s-agile-tool-bar__header.is-header-tool').prepend(
           '<div class="wp-s-agile-tool-bar__h-group"><button style=" margin-right: 10px;color: #fff;background-color: #06a7ff;border:none;" id="downbtn_main" class="u-button nd-file-list-toolbar-action-item" ><i style="top:0;" class="iconfont icon-download"></i> <lable>' +
-          config.title_name +
+          wwConfig.titleName +
           '</lable></button></div>'
         );
       }
     }
-
     $('#downbtn_share').click(function () {
       swal({
         title: '提示',
@@ -92,7 +105,7 @@
         return false;
       }
 
-      const newDiv = document.createElement('div');
+      const wwJieXiDiv = document.createElement('div');
       let createDiv = `
         <div>
         <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
@@ -101,22 +114,28 @@
          <input style="border:1px solid #ccc; width:60%;height:40px;text-indent:20px;" type="text" autocomplete="off" placeholder="请输入验证码" id="wpCode"/>
         </div>
         `;
-      newDiv.innerHTML = createDiv;
+      wwJieXiDiv.innerHTML = createDiv;
 
-      const openLayer = layer.open({
-        type: 1, // page 层类型
+      const openInfoLayer = layer.open({
+        type: 1,
         area: ['450px', '300px'],
         title: '提示',
-        shade: 0.6, // 遮罩透明度
-        shadeClose: true, // 点击遮罩区域，关闭弹层
-        anim: 0, // 0-6 的动画形式，-1 不开启
+        shade: 0.6,
+        shadeClose: true,
+        anim: 0,
         content: `
           <div class="layui-form" lay-filter="filter-test-layer" style="width:360px;margin: 16px auto 0;">
-            <div class="demo-login-container">
-                <div style="margin-top:50px;">插件解析限制 2 次</div>
-                <div>下载器一定要配置好 User-Agent 和端口: <a style="color:green;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看下载器配置教程说明</a></div>
-                <div>不限次数 PC 网页稳定版: <a style="color:green;" target="_blank" href="https://pandown.mlover.site/">点击前往</a></div>
-               <button style="margin-left:0;margin-top:50px;" id="parse" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login">解析</button>
+            <div class="demo-send-container">
+                <div style="margin-top:50px;">
+                  <p>插件解析限制 2 次</p>
+                  <p>
+                    Gopeed 下载器一定要配置好 User-Agent 和端口: <a style="color:red;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看Gopeed配置教程说明</a>
+                  </p>
+                  <p>
+                    不限次数 PC 网页稳定版: <a style="color:red;" target="_blank" href="https://pandown.mlover.site/">点击前往</a>
+                  </p>
+                </div>
+               <button style="margin-left:0;margin-top:30px;" id="parseBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">点击发送到Gopeed</button>
             </div>
           </div>
             `,
@@ -124,15 +143,15 @@
           // 对弹层中的表单进行初始化渲染
           form.render();
           // 表单提交事件
-          form.on('submit(demo-login)', async function (data) {
-            $('#parse').html('<p>正在解析中请稍后...</p>');
-            let canDown = await testDownLoad();
+          form.on('submit(demo-send)', async function (data) {
+            $('#parseBtn').html('<p>正在发送中,请稍后...</p>');
+            let testDown = await testSendToGopeed();
 
-            if (!canDown) {
-              layer.close(openLayer);
+            if (!testDown) {
+              layer.close(openInfoLayer);
               swal({
-                title: "下载Gopeed加速器",
-                text: '请先安装Gopeed下载器并打开运行，点击按钮下载Gopeed加速下载器。',
+                title: "下载 Gopeed 加速器",
+                text: '请先安装 Gopeed 并打开运行(点击按钮下载 Gopeed)。',
                 icon: 'warning',
                 type: "warning",
                 showCancelButton: true,
@@ -142,10 +161,10 @@
               }).then(function () {
                 window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
               });
-              $('#parse').html('<p>解析</p>');
+              $('#parseBtn').html('<p>发送到Gopeed</p>');
               return;
             }
-            share_one_baidu(openLayer, 1234);
+            share_one_baidu(openInfoLayer, 1234);
           });
         },
       });
@@ -166,12 +185,7 @@
     });
     return select;
   }
-  const config = {
-    main_url: 'https://aifenxiang.net.cn:8081',
-    bd_password: '1234',
-    title_name: '文武解析',
-  };
-  function share_one_baidu(openLayer, code) {
+  function share_one_baidu(openInfoLayer, code) {
     let select = Object.keys(selectList());
     let bdstoken = '';
     let data_json = {};
@@ -180,23 +194,23 @@
         .html()
         .match(/(?<=locals\.mset\()(.*?)(?=\);)/)[0];
       data_json = JSON.parse(data_json);
-      config.username = data_json.username;
+      wwConfig.username = data_json.username;
       bdstoken = data_json.bdstoken;
     } catch (e) {
       data_json = $('html')
         .html()
         .match(/(?<=window\.locals\s=\s)(.*?)(?=;)/)[0];
       data_json = JSON.parse(data_json);
-      config.username = data_json.userInfo.username;
+      wwConfig.username = data_json.userInfo.username;
       bdstoken = data_json.userInfo.bdstoken;
     }
 
-    config.data_json = data_json;
+    wwConfig.data_json = data_json;
 
     const param = {
       bdstoken: bdstoken,
       period: 1,
-      pwd: config.bd_password,
+      pwd: wwConfig.bdPassword,
       eflag_disable: true,
       channel_list: '%5B%5D',
       schannel: 4,
@@ -210,7 +224,7 @@
       data: {
         bdstoken: bdstoken,
         period: 1,
-        pwd: config.bd_password,
+        pwd: wwConfig.bdPassword,
         eflag_disable: true,
         channel_list: '%5B%5D',
         schannel: 4,
@@ -235,7 +249,7 @@
             });
             return false;
           }
-          fetch(config.main_url + '/wp/getCodeNum', {
+          fetch(wwConfig.mainUrl + '/wp/getCodeNum', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -251,25 +265,25 @@
             .then((res) => {
               let laysermsg = layer.msg('正在解析中', {
                 icon: 6,
-                time: 10000, // 7秒后自动关闭
+                time: 10000,
               });
               if (res.code == 200) {
-                config.code = code;
+                wwConfig.code = code;
                 if (res.data > 100) {
                   get_down_list(
                     shorturl,
-                    config.bd_password,
-                    openLayer,
+                    wwConfig.bdPassword,
+                    openInfoLayer,
                     res.data,
                     laysermsg
                   );
                 } else if (res.data == 80) {
                   layer.msg('解析中', {
                     icon: 6,
-                    time: 3000, // 3秒后自动关闭
+                    time: 3000,
                   });
                   setTimeout(() => {
-                    $('#parse').html('<p>解析</p>');
+                    $('#parseBtn').html('<p>解析</p>');
                     layer.alert('解析通道比较拥堵，请重试！', {
                       title: '提示',
                     });
@@ -277,10 +291,10 @@
                 } else if (res.data == 60) {
                   layer.msg('解析中', {
                     icon: 6,
-                    time: 3000, // 3秒后自动关闭
+                    time: 3000,
                   });
                   setTimeout(() => {
-                    $('#parse').html('<p>解析</p>');
+                    $('#parseBtn').html('<p>解析</p>');
                     layer.alert('解析次数已达上限，不限次数稳定版！', {
                       title: '提示',
                     }, function () {
@@ -303,7 +317,7 @@
                   );
                 }
               } else if (res.code == 500) {
-                layer.close(openLayer);
+                layer.close(openInfoLayer);
                 layer.close(laysermsg);
                 swal({
                   text: res.msg,
@@ -322,7 +336,7 @@
     });
   }
 
-  async function get_down_list(shorturl, password, openLayer, pwd, laysermsg) {
+  async function get_down_list(shorturl, password, openInfoLayer, pwd, laysermsg) {
     let ajax_data = {
       shorturl: shorturl,
       pwd: password,
@@ -331,7 +345,7 @@
       userKey: 'main',
     };
 
-    fetch(config.main_url + '/wp/parseCopyLink', {
+    fetch(wwConfig.mainUrl + '/wp/parseCopyLink', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -343,16 +357,15 @@
         if (res.code == 200) {
           const size = parseInt(res.data.data.list[0].size);
           if (size > 3221225472) {
-            layer.close(openLayer);
+            layer.close(openInfoLayer);
             layer.close(laysermsg);
-            $('#parse').html('<p>解析</p>');
+            $('#parseBtn').html('<p>发送到Gopeed</p>');
             swal({
               text: '文件大于 3G，插件暂不支持下载，请前往 PC 网页版下载！',
               icon: 'warning',
             });
             return false;
           }
-          console.log(res);
           const requestData = {
             fsId: res.data.data.list[0].fs_id,
             shareid: res.data.data.shareid,
@@ -371,7 +384,7 @@
           console.log(requestData);
           GM_xmlhttpRequest({
             method: 'POST',
-            url: config.main_url + '/wp/dlink',
+            url: wwConfig.mainUrl + '/wp/dlink',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -380,7 +393,7 @@
               const responseData = JSON.parse(response.responseText);
               console.log(responseData);
               if (responseData.code !== 200) {
-                layer.close(openLayer);
+                layer.close(openInfoLayer);
                 layer.close(laysermsg);
                 swal({
                   text: responseData.msg,
@@ -388,40 +401,53 @@
                 });
               } else {
                 layer.close(laysermsg);
-                $('#parse').html('<p>解析</p>');
+                $('#parseBtn').html('<p>发送到Gopeed</p>');
                 if (responseData.data.vip) {
-                  config.url = responseData.data.data[0].url;
+                  wwConfig.url = responseData.data.data[0].url;
                 } else {
-                  config.url = responseData.data.data.urls[0].url;
+                  wwConfig.url = responseData.data.data.urls[0].url;
                 }
-                sendToMotrix(res.data.data.list[0]);
+                sendToGopeed(res.data.data.list[0]);
               }
             },
             onerror: function (response) {
-              layer.close(openLayer);
+              layer.close(openInfoLayer);
               layer.close(laysermsg);
               const errorMessage =
                 JSON.parse(response.responseText).message || '网络错误';
               swal({
-                text: '解析遇到问题了，请刷新重试即可！！',
+                text: '发送到Gopeed遇到问题了，请刷新重试即可！！',
                 icon: 'warning',
               });
             },
           });
         } else {
-          layer.close(openLayer);
+          layer.close(openInfoLayer);
           layer.close(laysermsg);
-          $('#parse').html('<p>解析</p>');
+          $('#parseBtn').html('<p>发送到Gopeed</p>');
           swal({
-            text: '解析遇到问题了，请升级插件刷新重试即可！！',
+            text: '发送到Gopeed遇到问题了，请升级插件刷新重试即可！！',
             icon: 'warning',
           });
         }
       });
   }
-
-  function sendToMotrix(item) {
-    fetch('http://127.0.0.1:9999/api/v1/tasks', {
+  function testSendToGopeed() {
+    return fetch(wwConfig.goPeedTaskUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((resp) => resp.json())
+      .then((res) => {
+        return true;
+      }).catch(e => {
+        return false;
+      })
+  }
+  function sendToGopeed(item) {
+    fetch(wwConfig.goPeedTaskUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -429,7 +455,7 @@
       body: JSON.stringify({
         req:
         {
-          url: config.url
+          url: wwConfig.url
         },
         opt: {
           extra: {
@@ -439,16 +465,14 @@
       }),
     }).then((resp) => resp.json())
       .then((res) => {
-        layer.alert(`${item.server_filename}开始下载,请打开下载器查看!`);
-
+        layer.alert(`${item.server_filename} 开始下载，请打开 Gopeed 查看!`);
       }).catch(e => {
       })
   }
   setInterval(() => {
-
     GM_xmlhttpRequest({
       method: 'get',
-      url: 'http://127.0.0.1:9999/api/v1/tasks?status=running',
+      url: wwConfig.goPeedTaskUrl + '?status=running',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -463,14 +487,14 @@
         if (ids && ids.length) {
           GM_xmlhttpRequest({
             method: 'put',
-            url: `http://127.0.0.1:9999/api/v1/tasks/pause?${ids}`,
+            url: `${wwConfig.goPeedTaskUrl}/pause?${ids}`,
             headers: {
               'Content-Type': 'application/json',
             },
             onload: function (response) {
               GM_xmlhttpRequest({
                 method: 'put',
-                url: `http://127.0.0.1:9999/api/v1/tasks/continue?${ids}`,
+                url: `${wwConfig.goPeedTaskUrl}/continue?${ids}`,
                 headers: {
                   'Content-Type': 'application/json',
                 },
@@ -483,18 +507,5 @@
       }
     })
   }, 15000)
-  function testDownLoad() {
-    return fetch('http://127.0.0.1:9999/api/v1/tasks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then((resp) => resp.json())
-      .then((res) => {
-        return true;
-      }).catch(e => {
-        return false;
-      })
-  }
+
 })();
