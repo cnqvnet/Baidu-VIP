@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              文武Download-直链的云盘助手
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           1.0
+// @version           1.1
 // @description       提取单文件高速直链、便捷使用的脚本助手，支持 Gopeed 多线程下载工具。向广大网友免费交流学习使用，探索使用脚本的乐趣！
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -404,6 +404,7 @@
                 $('#parseBtn').html('<p>发送到Gopeed</p>');
                 if (responseData.data.vip) {
                   wwConfig.url = responseData.data.data[0].url;
+                  wwConfig.ua = responseData.data.data[0].ua;
                 } else {
                   wwConfig.url = responseData.data.data.urls[0].url;
                 }
@@ -455,7 +456,12 @@
       body: JSON.stringify({
         req:
         {
-          url: wwConfig.url
+          url: wwConfig.url,
+          extra: {
+            header: {
+              "User-Agent": wwConfig.ua,
+            }
+          }
         },
         opt: {
           extra: {
