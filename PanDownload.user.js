@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name              文武Download-直链的云盘助手
+// @name              文武Download-高速下载直链的百度云盘助手
 // @namespace         https://github.com/dongyubin/Baidu-VIP
 // @version           1.0
-// @description       提取单文件高速直链、便捷使用的脚本助手，支持 Gopeed 多线程下载工具。向广大网友免费交流学习使用，探索使用脚本的乐趣！
+// @description       提取百度网盘单文件高速直链、便捷使用的脚本助手，支持 Gopeed 多线程下载工具。向广大网友免费交流学习使用，探索使用脚本的乐趣！
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
 // @license           MIT
