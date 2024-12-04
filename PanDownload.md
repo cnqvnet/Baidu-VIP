@@ -2,7 +2,7 @@
 
 ## 概述 / Overview
 
-提取单文件高速直链、便捷使用的脚本助手，支持 Gopeed 多线程下载工具。脚本适用于在无法安装官方客户端的场景下使用（例如学校机房，办公室，网吧等人员复杂的环境）。不会获取任何个人隐私信息，下载链接你自己可见。
+百度网盘单文件提取高速直链、便捷使用的脚本助手，支持 [Gopeed](https://pan.quark.cn/s/0b2e9c6e94b0)、[NDM](https://neatdownloadmanager.com/index.php/en/)、[IDM](https://www.wangdu.site/software/tools/380.html) 多线程下载工具。脚本适用于在无法安装官方客户端的场景下使用（例如学校机房，办公室，网吧等人员复杂的环境）。不会获取任何个人隐私信息，下载链接你自己可见。
 
 Extract single file high-speed direct link, convenient to use script assistant, support Gopeed multi-threaded download tool. The script is suitable for use in scenarios where the official client cannot be installed (such as school computer rooms, offices, internet cafes and other complex environments). It will not obtain any personal privacy information, and the download link is visible only to you.
 
@@ -10,7 +10,7 @@ Extract single file high-speed direct link, convenient to use script assistant, 
 - 文件大小在 `3G` 以下（`<=3G`）
 - 不支持文件夹解析及批量解析
 
-[文武Download网页版](https://pandown.mlover.site/)、[Gopeed下载](https://pan.quark.cn/s/0b2e9c6e94b0)（[Gopeed 使用教程](https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL)）
+[文武Download网页版](https://pandown.mlover.site/)、[Gopeed下载](https://pan.quark.cn/s/0b2e9c6e94b0)（[Gopeed 使用教程](https://flowus.cn/wwkejishe/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL)）
 
 ## 特别提示 / hot tip
 

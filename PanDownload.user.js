@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              文武Download-高速下载直链的百度云盘SVIP助手
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           1.2
+// @version           1.3
 // @description       提取百度网盘单文件高速直链、便捷使用的脚本助手，支持 Gopeed 多线程下载工具。向广大网友免费交流学习使用，探索使用脚本的乐趣！
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -35,6 +35,8 @@
 // @grant             GM_addStyle
 // @grant             GM_getResourceText
 // @grant             GM_xmlhttpRequest
+// @grant             GM_setClipboard
+// @grant             GM_notification
 // @antifeature       ads
 // @antifeature       membership
 // @antifeature       referral-link
@@ -471,7 +473,14 @@
       }),
     }).then((resp) => resp.json())
       .then((res) => {
-        layer.alert(`${item.server_filename} 开始下载，请打开 Gopeed 查看!`);
+        layer.confirm(`请打开 Gopeed 查看 ${item.server_filename} 是否开始下载？未下载成功，可设置IDM/NDM UA设置：<code>netdisk;1.0.1</code>，再复制直链下载！`, {
+          btn: ['已下载，关闭弹窗', '未下载，复制直链'] //按钮
+        }, function (index) {
+          layer.close(index);
+        }, function () {
+          GM_setClipboard(wwConfig.url, "text");
+          layer.msg(`${item.server_filename} 的直链复制成功！`);
+        });
       }).catch(e => {
       })
   }
