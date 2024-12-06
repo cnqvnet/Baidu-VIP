@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name              文武Download-高速下载直链的百度云盘SVIP助手
+// @name              百度网盘SVIP高速解析下载直链的助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           1.4
-// @description       百度网盘单文件SVIP解析高速直链、便捷使用的脚本助手，100%可用，支持 Gopeed、IDM、NDM 等多线程下载工具。向广大网友免费交流学习使用，探索使用脚本的乐趣！
+// @version           1.5
+// @description       百度网盘SVIP解析高速直链的脚本助手，100%可用，支持 Gopeed、IDM、NDM 等多线程下载工具。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
 // @license           MIT
