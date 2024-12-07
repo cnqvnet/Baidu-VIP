@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析下载直链的助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           1.5
+// @version           1.6
 // @description       百度网盘SVIP解析高速直链的脚本助手，100%可用，支持 Gopeed、IDM、NDM 等多线程下载工具。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -474,7 +474,7 @@
     }).then((resp) => resp.json())
       .then((res) => {
         layer.confirm(`请打开 Gopeed 查看 ${item.server_filename} 是否开始下载？未下载成功，可设置IDM/NDM UA设置：<code>netdisk;1.0.1</code>，再复制直链下载！`, {
-          btn: ['已下载，关闭弹窗', '未下载，复制直链'] //按钮
+          btn: ['已下载，关闭弹窗', '未下载，复制直链']
         }, function (index) {
           layer.close(index);
         }, function () {
