@@ -9,6 +9,7 @@ Extract single file high-speed direct link, convenient to use script assistant, 
 - 每天可解析`2`次
 - 文件大小在 `3G` 以下（`<=3G`）
 - 不支持文件夹解析及批量解析
+- 下载速度最快可达`10M+/s`
 
 [文武Download网页版](https://pandown.mlover.site/)、[Gopeed下载](https://pan.quark.cn/s/0b2e9c6e94b0)（[Gopeed 使用教程](https://flowus.cn/wwkejishe/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL)）
 
