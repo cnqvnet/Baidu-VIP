@@ -1,5 +1,9 @@
 # 文武PanDownload
 
+🛒网盘极速下载VIP账号：[立即前往](https://fk.wwkejishe.top/buy/23)
+
+Github By [@dongyubin](https://github.com/dongyubin/Baidu-VIP)
+
 ## 概述 / Overview
 
 百度网盘单文件提取高速直链、便捷使用的脚本助手，支持 [Gopeed](https://pan.quark.cn/s/0b2e9c6e94b0)、[NDM](https://neatdownloadmanager.com/index.php/en/)、[IDM](https://www.wangdu.site/software/tools/380.html) 多线程下载工具。脚本适用于在无法安装官方客户端的场景下使用（例如学校机房，办公室，网吧等人员复杂的环境）。不会获取任何个人隐私信息，下载链接你自己可见。
