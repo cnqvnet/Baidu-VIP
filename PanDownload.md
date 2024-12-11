@@ -16,7 +16,7 @@ Extract single file high-speed direct link, convenient to use script assistant, 
 
 本脚本需要下载网盘获取`解析密码`才能解锁全部功能，本脚本中可能包含`不受欢迎的弹窗广告`，请看清楚再用！！！
 
-[获取临时 SVIP 账号](https://fk.wwkejishe.top/buy/23)
+[获取临时 SVIP 账号](https://fk.wwkejishe.top/buy/23)、[获取解析验证码](https://www.wangdu.site/software/tools/948.html)
 
 ## 渲染界面 / Rendering interface
 

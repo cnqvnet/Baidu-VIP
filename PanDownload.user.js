@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析下载直链的助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           1.5
-// @description       百度网盘SVIP解析高速直链的脚本助手，100%可用，支持 Gopeed、IDM、NDM 等多线程下载工具。
+// @version           1.9
+// @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
 // @license           MIT
@@ -40,6 +40,8 @@
 // @antifeature       ads
 // @antifeature       membership
 // @antifeature       referral-link
+// @downloadURL https://update.greasyfork.org/scripts/518023/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98SVIP%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E4%B8%8B%E8%BD%BD%E7%9B%B4%E9%93%BE%E7%9A%84%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6PanDownload.user.js
+// @updateURL https://update.greasyfork.org/scripts/518023/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98SVIP%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E4%B8%8B%E8%BD%BD%E7%9B%B4%E9%93%BE%E7%9A%84%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6PanDownload.meta.js
 // ==/UserScript==
 (function () {
   'use strict';
@@ -474,7 +476,7 @@
     }).then((resp) => resp.json())
       .then((res) => {
         layer.confirm(`请打开 Gopeed 查看 ${item.server_filename} 是否开始下载？未下载成功，可设置IDM/NDM UA设置：<code>netdisk;1.0.1</code>，再复制直链下载！`, {
-          btn: ['已下载，关闭弹窗', '未下载，复制直链'] //按钮
+          btn: ['已下载，关闭弹窗', '未下载，复制直链']
         }, function (index) {
           layer.close(index);
         }, function () {
