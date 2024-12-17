@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           2.6
+// @version           2.7
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -154,10 +154,12 @@
                 </div>
               </div>
               <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
-                <p>当前最新的脚本为：<span class="piao">2.5</span></p>
+                <p>当前最新的脚本为：<span class="piao">2.7</span></p>
+                <p>&nbsp;</p>
                 <p><a href="https://fk.wwkejishe.top/buy/23" target="_blank" style="font-weight: 900;color: #409eff;">
                   购买月卡：不限次数、不限制文件大小、不限速</a></p>
                 <p>
+                <p>&nbsp;</p>
                 <figure class='table-figure'>
                   <table class="layui-table" style="border-collapse: separate;">
                     <thead>
@@ -184,7 +186,10 @@
                   </table>
                 </figure>
                 <p>&nbsp;</p>
+                <p>
+                  <a href="http://vip.jiufei.com/lin/GI5LG4?refer=1661" target="_blank" style="color: #007bff; text-decoration: none;">点击购买（高质量）网盘会员</a>：￥3/4天，￥7.5/25天，￥22.8/年
                 </p>
+                <p>&nbsp;</p>
                 <p>2023-2024 © Github By <a style="color:#007bff;" href="https://github.com/dongyubin/Baidu-VIP" target="_blank">@dongyubin</a></p>
               </div>
               <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
