@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name              百度网盘SVIP高速解析不限速下载的直链助手-文武PanDownload
+// @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           2.4
-// @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，（稳定运行中）无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
+// @version           2.5
+// @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
 // @supportURL        https://fk.wwkejishe.top/buy/23
@@ -141,12 +141,12 @@
                 <div class="layui-form" lay-filter="filter-test-layer" style="width:360px;margin: 16px auto 0; background-color: #fff; border-radius: 8px; padding: 20px;">
                   <div class="demo-send-container">
                     <div>
-                      <p>插件解析限制 2 次</p>
+                      <p>插件解析限制 <span class="piao">2</span> 次</p>
                       <p>
-                        Gopeed 下载器一定要配置好 User-Agent 和端口: <a style="color:red;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看Gopeed配置教程说明</a>
+                        Gopeed 下载器一定要配置好 User-Agent 和端口: <a style="color:red;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看 Gopeed 配置教程说明</a>
                       </p>
                       <p>
-                        不限次数 PC 网页稳定版: <a style="color:red;" target="_blank" href="https://pandown.mlover.site/">点击前往</a>
+                        不限次数 PC 网页稳定版: <a style="color:red;font-weight:900;" target="_blank" href="https://pandown.mlover.site/">点击前往</a>
                       </p>
                     </div>
                     <button style="margin-left:0;margin-top:30px; border-radius: 8px;" id="parseBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">点击发送到Gopeed</button>
@@ -154,16 +154,44 @@
                 </div>
               </div>
               <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
-                <p>当前最新的脚本为：<span class="piao">2.1</span></p>
+                <p>当前最新的脚本为：<span class="piao">2.5</span></p>
                 <p><a href="https://fk.wwkejishe.top/buy/23" target="_blank" style="font-weight: 900;color: #409eff;">
-                  如需不限次数或者不限制文件大小，请前往下单</a></p>
-                <p>2023-2024 © Github By <a style="color:#000000" href="https://github.com/dongyubin/Baidu-VIP" target="_blank">@dongyubin</a></p>
+                  购买月卡：不限次数、不限制文件大小、不限速</a></p>
+                <p>
+                <figure class='table-figure'>
+                  <table class="layui-table" style="border-collapse: separate;">
+                    <thead>
+                      <tr>
+                        <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度VIP</th>
+                        <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度SVIP</th>
+                        <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">
+                          <a href='https://fk.wwkejishe.top/buy/23' target='_blank' style='color: #007bff; text-decoration: none;'>Pandownload月卡</a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥25/月</td>
+                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥40/月</td>
+                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">￥9/月</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">20G/月</td>
+                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">不限制</td>
+                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">不限制文件大小、不限制文件数量、高速下载</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </figure>
+                <p>&nbsp;</p>
+                </p>
+                <p>2023-2024 © Github By <a style="color:#007bff;" href="https://github.com/dongyubin/Baidu-VIP" target="_blank">@dongyubin</a></p>
               </div>
               <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
                 <div>
                   <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
                 </div>
-                <h2 class="h2" style="margin-top: 10px;">扫一扫不失联</h2>
+                <h2 class="h2" style="margin-top: 10px;">扫一扫，不失联</h2>
               </div>
             </div>
           </div>
