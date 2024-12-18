@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           2.8
+// @version           2.9
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -38,6 +38,7 @@
 // @grant             GM_xmlhttpRequest
 // @grant             GM_setClipboard
 // @grant             GM_notification
+// @grant             GM_info
 // @antifeature       ads
 // @antifeature       membership
 // @antifeature       referral-link
@@ -158,7 +159,7 @@
                 </div>
               </div>
               <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
-                <p>当前最新的脚本为：<span class="piao">2.8</span></p>
+                <p><span style="font-weight: 900;">`+ GM_info.script.name + `</span> 最新的脚本版本号为：<span style="font-weight: 900;">` + GM_info.script.version + `</span></p>
                 <p>&nbsp;</p>
                 <p><a href="https://fk.wwkejishe.top/buy/23" target="_blank" style="font-weight: 900;color: #409eff;">
                   购买月卡：不限次数、不限制文件大小、不限速</a></p>
