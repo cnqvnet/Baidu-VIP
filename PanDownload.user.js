@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           3.2
+// @version           3.4
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -123,17 +123,6 @@
         return false;
       }
 
-      // const wwJieXiDiv = document.createElement('div');
-      // let createDiv = `
-      //   <div>
-      //   <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
-      //   </div>
-      //   <div>
-      //    <input style="border:1px solid #ccc; width:60%;height:40px;text-indent:20px;" type="text" autocomplete="off" placeholder="请输入验证码" id="wpCode"/>
-      //   </div>
-      //   `;
-      // wwJieXiDiv.innerHTML = createDiv;
-
       const openInfoLayer = layer.open({
         type: 1,
         area: ['550px', 'auto'],
@@ -236,7 +225,13 @@
           // 表单提交事件
           form.on('submit(demo-send)', async function (data) {
             $('#parseBtn').html('<p>正在发送中,请稍后...</p>');
-            testDownload('#parseBtn');
+            let testDown = await testSendToGopeed();
+            if (!testDown) {
+              layer.close(openInfoLayer);
+              gospeedDownload();
+              $('#parseBtn').html('<p>发送到Gopeed</p>');
+              return;
+            }
             let one_url = wwConfig.mainUrl + '/wp/getCodeNum';
             share_one_baidu(openInfoLayer, one_url, wwConfig.one_parse.code, wwConfig.one_parse.version);
           });
@@ -245,7 +240,13 @@
             let captchaStr = $('#captcha').val();
             if (captchaStr) {
               $('#parseWxBtn').html('<p>正在发送中,请稍后...</p>');
-              testDownload('#parseWxBtn');
+              let testDown = await testSendToGopeed();
+              if (!testDown) {
+                layer.close(openInfoLayer);
+                gospeedDownload();
+                $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+                return;
+              }
               let one_url = wwConfig.mainUrl + '/wp/getPcCodeNum';
               share_one_baidu(openInfoLayer, one_url, captchaStr, wwConfig.wx_parse.version);
             } else {
@@ -263,25 +264,17 @@
     });
   });
 
-  async function testDownload(btn_id) {
-    let testDown = await testSendToGopeed();
-    if (!testDown) {
-      layer.close(openInfoLayer);
-      swal({
-        title: "下载 Gopeed 加速器",
-        text: '请先安装 Gopeed 并打开运行(点击按钮下载 Gopeed)。',
-        icon: 'warning',
-        type: "warning",
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: '点击下载Gopeed',
-        confirmButtonColor: "#dd6b55",
-      }).then(function () {
-        window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
-      });
-      $(btn_id).html('<p>发送到Gopeed</p>');
-      return;
-    }
+  function gospeedDownload() {
+    swal({
+      title: "下载 Gopeed 加速器",
+      text: '请先安装 Gopeed 并打开运行(点击按钮下载 Gopeed)。',
+      icon: 'warning',
+      type: "warning",
+      confirmButtonText: '点击下载Gopeed',
+      confirmButtonColor: "#dd6b55",
+    }).then(function () {
+      window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
+    });
   }
 
   function selectList() {
@@ -310,8 +303,17 @@
         setTimeout(() => {
           $('#parseBtn').html('<p>发送到Gopeed</p>');
           $('#parseWxBtn').html('<p>发送到Gopeed</p>');
-          layer.alert('解析通道比较拥堵，请重试！', {
+          layer.alert('解析通道比较拥堵，请尝试快速下载！', {
             title: '提示',
+            closeBtn: 0,
+            btn: ['确定', '前往快速下载'],
+            btn1: function (index) {
+              $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+              layer.close(index);
+            },
+            btn2: function (index) {
+              window.open('https://fk.wwkejishe.top/buy/23');
+            }
           });
         }, 3000);
         break;
@@ -321,13 +323,25 @@
           {
             title: '提示',
             closeBtn: 0
-          },
-          function (index) {
+          }, function (index) {
             $('#parseWxBtn').html('<p>发送到Gopeed</p>');
             layer.close(index);
           }
         );
         break;
+      case 3:
+        layer.alert('今日下载次数已达上线，请明天再来下载，或者使用快速下载！', {
+          title: '提示',
+          closeBtn: 0,
+          btn: ['确定', '前往快速下载'],
+          btn1: function (index) {
+            $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+            layer.close(index);
+          },
+          btn2: function (index) {
+            window.open('https://fk.wwkejishe.top/buy/23');
+          }
+        })
       default:
         wwConfig.one_parse.version = 1;
         break;
@@ -355,16 +369,6 @@
     }
 
     wwConfig.data_json = data_json;
-
-    // const param = {
-    //   bdstoken: bdstoken,
-    //   period: 1,
-    //   pwd: wwConfig.bdPassword,
-    //   eflag_disable: true,
-    //   channel_list: '%5B%5D',
-    //   schannel: 4,
-    //   fid_list: JSON.stringify(select),
-    // };
 
     $.ajax({
       type: 'GET',
@@ -435,6 +439,9 @@
                 }
                 else if (res.data == 50 || res.data.data == 50) {
                   init_parse(2);
+                }
+                else if (res.data.data == 100 || res.data.vip == 0) {
+                  init_parse(3);
                 }
                 else {
                   init_parse(2);
