@@ -1,16 +1,16 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           3.0
+// @version           3.2
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
 // @supportURL        https://fk.wwkejishe.top/buy/23
 // @license           MIT
 // @icon              https://fk.wwkejishe.top/uploads/images/6e798005b00ce678782af4e6931f4374.png
-// @require           https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.18/layui.min.js
-// @resource          layuiCSS https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.18/css/layui.css
-// @require           https://unpkg.com/sweetalert/dist/sweetalert.min.js
+// @resource          layuiCSS https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.20/css/layui.min.css
+// @require           https://cdnjs.cloudflare.com/ajax/libs/layui/2.9.20/layui.min.js
+// @require           https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js
 // @match             *://pan.baidu.com/*
 // @match             *://yun.baidu.com/*
 // @match             *://pan.baidu.com/disk/home*
@@ -48,13 +48,24 @@
 (function () {
   'use strict';
   const layuiCss = GM_getResourceText('layuiCSS');
-  GM_addStyle(layuiCss);
+  GM_addStyle(layuiCss + `
+    .layui-icon-close:before {
+      content: "x" !important;
+    }
+  `);
   const wwConfig = {
     mainUrl: 'https://aifenxiang.net.cn:8081',
     bdPassword: '1234',
-    titleName: '文武Download',
+    titleName: '文武PanDownload',
     goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks',
-    ua: 'netdisk;1.0.1'
+    ua: 'netdisk;1.0.1',
+    one_parse: {
+      code: 'bd-2',
+      version: '1.1.4'
+    },
+    wx_parse: {
+      version: "1.0.9"
+    }
   };
   layui.use(['layer'], async function () {
     var layer = layui.layer,
@@ -75,7 +86,7 @@
         );
       } else {
         $('.wp-s-agile-tool-bar__header.is-header-tool').prepend(
-          '<div class="wp-s-agile-tool-bar__h-group"><button style=" margin-right: 10px;color: #fff;background-color: #06a7ff;border:none;" id="downbtn_main" class="u-button nd-file-list-toolbar-action-item" ><i style="top:0;" class="iconfont icon-download"></i> <lable>' +
+          '<div class="wp-s-agile-tool-bar__h-group"><button style=" margin-right: 10px;color: #fff;background-color: #ff436a;border:none;" id="downbtn_main" class="u-button nd-file-list-toolbar-action-item" ><i style="top:0;" class="iconfont icon-download"></i> <lable>' +
           wwConfig.titleName +
           '</lable></button></div>'
         );
@@ -112,16 +123,16 @@
         return false;
       }
 
-      const wwJieXiDiv = document.createElement('div');
-      let createDiv = `
-        <div>
-        <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
-        </div>
-        <div>
-         <input style="border:1px solid #ccc; width:60%;height:40px;text-indent:20px;" type="text" autocomplete="off" placeholder="请输入验证码" id="wpCode"/>
-        </div>
-        `;
-      wwJieXiDiv.innerHTML = createDiv;
+      // const wwJieXiDiv = document.createElement('div');
+      // let createDiv = `
+      //   <div>
+      //   <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
+      //   </div>
+      //   <div>
+      //    <input style="border:1px solid #ccc; width:60%;height:40px;text-indent:20px;" type="text" autocomplete="off" placeholder="请输入验证码" id="wpCode"/>
+      //   </div>
+      //   `;
+      // wwJieXiDiv.innerHTML = createDiv;
 
       const openInfoLayer = layer.open({
         type: 1,
@@ -134,8 +145,9 @@
         content: `
           <div class="layui-tab layui-tab-brief" style="background-color: #f8f8f8; border-radius: 8px;">
             <ul class="layui-tab-title" style="background-color: #fff; border-bottom: 1px solid #e6e6e6;">
-              <li class="layui-this">解析</li>
-              <li>更多资源</li>
+              <li class="layui-this">免费解析</li>
+              <li>验证码解析</li>
+              <li>稳定解析</li>
               <li>防止失联</li>
             </ul>
             <div class="layui-tab-content" style="padding: 20px;">
@@ -153,10 +165,21 @@
                     </div>
                     <div class="layui-btn-container">
                       <button style="margin-top:30px; border-radius: 8px;" id="copyUaBtn" class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">复制User-Agent</button>
-                      <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">点击发送到Gopeed</button>
+                      <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">发送到Gopeed</button>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
+                <div>
+                  <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
+                </div>   
+                <h2 class="h2" style="margin-top: 10px;">扫描上方二维码，获取验证码</h2>
+                <h3>每天随机解析5-10次</h3>
+                  <div>
+                    <input type="text" name="captcha" id="captcha" value="" lay-verify="required" placeholder="请填写验证码" lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
+                  </div>
+                  <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseWxBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-wx-send">发送到Gopeed</button>
               </div>
               <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
                 <p><span style="font-weight: 900;">`+ GM_info.script.name + `</span> 最新的脚本版本号为：<span style="font-weight: 900;">` + GM_info.script.version + `</span></p>
@@ -213,26 +236,22 @@
           // 表单提交事件
           form.on('submit(demo-send)', async function (data) {
             $('#parseBtn').html('<p>正在发送中,请稍后...</p>');
-            let testDown = await testSendToGopeed();
+            testDownload('#parseBtn');
+            let one_url = wwConfig.mainUrl + '/wp/getCodeNum';
+            share_one_baidu(openInfoLayer, one_url, wwConfig.one_parse.code, wwConfig.one_parse.version);
+          });
 
-            if (!testDown) {
-              layer.close(openInfoLayer);
-              swal({
-                title: "下载 Gopeed 加速器",
-                text: '请先安装 Gopeed 并打开运行(点击按钮下载 Gopeed)。',
-                icon: 'warning',
-                type: "warning",
-                showCancelButton: true,
-                showConfirmButton: true,
-                confirmButtonText: '点击下载Gopeed',
-                confirmButtonColor: "#dd6b55",
-              }).then(function () {
-                window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
-              });
-              $('#parseBtn').html('<p>发送到Gopeed</p>');
-              return;
+          $('#parseWxBtn').on('click', async function () {
+            let captchaStr = $('#captcha').val();
+            if (captchaStr) {
+              $('#parseWxBtn').html('<p>正在发送中,请稍后...</p>');
+              testDownload('#parseWxBtn');
+              let one_url = wwConfig.mainUrl + '/wp/getPcCodeNum';
+              share_one_baidu(openInfoLayer, one_url, captchaStr, wwConfig.wx_parse.version);
+            } else {
+              layer.msg('请输入验证码');
             }
-            share_one_baidu(openInfoLayer, 'bd-1');
+
           });
 
           // 复制 User-Agent 按钮的事件处理
@@ -243,6 +262,28 @@
       });
     });
   });
+
+  async function testDownload(btn_id) {
+    let testDown = await testSendToGopeed();
+    if (!testDown) {
+      layer.close(openInfoLayer);
+      swal({
+        title: "下载 Gopeed 加速器",
+        text: '请先安装 Gopeed 并打开运行(点击按钮下载 Gopeed)。',
+        icon: 'warning',
+        type: "warning",
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: '点击下载Gopeed',
+        confirmButtonColor: "#dd6b55",
+      }).then(function () {
+        window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
+      });
+      $(btn_id).html('<p>发送到Gopeed</p>');
+      return;
+    }
+  }
+
   function selectList() {
     var select = {};
     var option = [];
@@ -258,7 +299,42 @@
     });
     return select;
   }
-  function share_one_baidu(openInfoLayer, code) {
+
+  function init_parse(code) {
+    switch (code) {
+      case 1:
+        layer.msg('解析中', {
+          icon: 6,
+          time: 3000,
+        });
+        setTimeout(() => {
+          $('#parseBtn').html('<p>发送到Gopeed</p>');
+          $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+          layer.alert('解析通道比较拥堵，请重试！', {
+            title: '提示',
+          });
+        }, 3000);
+        break;
+      case 2:
+        layer.alert(
+          '验证码错误,一个验证码只能下载一个文件,请重新获取！',
+          {
+            title: '提示',
+            closeBtn: 0
+          },
+          function (index) {
+            $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+            layer.close(index);
+          }
+        );
+        break;
+      default:
+        wwConfig.one_parse.version = 1;
+        break;
+    }
+
+  }
+  function share_one_baidu(openInfoLayer, url, code, version) {
     let select = Object.keys(selectList());
     let bdstoken = '';
     let data_json = {};
@@ -280,15 +356,15 @@
 
     wwConfig.data_json = data_json;
 
-    const param = {
-      bdstoken: bdstoken,
-      period: 1,
-      pwd: wwConfig.bdPassword,
-      eflag_disable: true,
-      channel_list: '%5B%5D',
-      schannel: 4,
-      fid_list: JSON.stringify(select),
-    };
+    // const param = {
+    //   bdstoken: bdstoken,
+    //   period: 1,
+    //   pwd: wwConfig.bdPassword,
+    //   eflag_disable: true,
+    //   channel_list: '%5B%5D',
+    //   schannel: 4,
+    //   fid_list: JSON.stringify(select),
+    // };
 
     $.ajax({
       type: 'GET',
@@ -322,7 +398,7 @@
             });
             return false;
           }
-          fetch(wwConfig.mainUrl + '/wp/getCodeNum', {
+          fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -331,7 +407,7 @@
               code: code,
               userKey: 'main',
               fsId: select[0],
-              version: '1.1.4',
+              version: version,
             }),
           })
             .then((resp) => resp.json())
@@ -342,7 +418,7 @@
               });
               if (res.code == 200) {
                 wwConfig.code = code;
-                if (res.data > 100) {
+                if (res.data > 100 || res.data.data > 100) {
                   get_down_list(
                     shorturl,
                     wwConfig.bdPassword,
@@ -350,44 +426,18 @@
                     res.data,
                     laysermsg
                   );
-                } else if (res.data == 80) {
-                  layer.msg('解析中', {
-                    icon: 6,
-                    time: 3000,
-                  });
-                  setTimeout(() => {
-                    $('#parseBtn').html('<p>解析</p>');
-                    layer.alert('解析通道比较拥堵，请重试！', {
-                      title: '提示',
-                    });
-                  }, 3000);
-                } else if (res.data == 60) {
-                  layer.msg('解析中', {
-                    icon: 6,
-                    time: 3000,
-                  });
-                  setTimeout(() => {
-                    $('#parseBtn').html('<p>解析</p>');
-                    layer.alert('解析次数已达上限，不限次数稳定版！', {
-                      title: '提示',
-                    }, function () {
-                      window.open('https://pandown.mlover.site');
-                    });
-                  }, 3000);
-                } else if (res.data == 50) {
-                  layer.alert(
-                    '验证码错误,一个验证码只能下载一个文件,请重新获取！',
-                    {
-                      title: '提示',
-                    }
-                  );
-                } else {
-                  layer.alert(
-                    '验证码错误,一个验证码只能下载一个文件,请重新获取！',
-                    {
-                      title: '提示',
-                    }
-                  );
+                }
+                else if (res.data == 80 || res.data.data == 80) {
+                  init_parse(1);
+                }
+                else if (res.data == 60 || res.data.data == 60) {
+                  init_parse(1);
+                }
+                else if (res.data == 50 || res.data.data == 50) {
+                  init_parse(2);
+                }
+                else {
+                  init_parse(2);
                 }
               } else if (res.code == 500) {
                 layer.close(openInfoLayer);
@@ -507,6 +557,7 @@
           layer.close(openInfoLayer);
           layer.close(laysermsg);
           $('#parseBtn').html('<p>发送到Gopeed</p>');
+          $('#parseWxBtn').html('<p>发送到Gopeed</p>');
           swal({
             text: '发送到Gopeed遇到问题了，请升级插件刷新重试即可！！',
             icon: 'warning',
@@ -552,7 +603,7 @@
       }),
     }).then((resp) => resp.json())
       .then((res) => {
-        layer.confirm(`请打开 Gopeed 查看 ${item.server_filename} 是否开始下载？未下载成功，先设置IDM/NDM User-Agent：<code>netdisk;1.0.1</code>，再复制直链下载！`, {
+        layer.confirm(`请打开 Gopeed 查看 <span style="color:rgba(5,150,105,1);">${item.server_filename}</span> 是否开始下载？未下载成功，先设置IDM/NDM User-Agent:<code>` + wwConfig.ua + `</code>，再复制直链下载！`, {
           btn: ['已下载，关闭弹窗', '未下载，复制直链']
         }, function (index) {
           layer.close(index);
