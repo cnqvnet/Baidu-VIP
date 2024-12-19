@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           3.4
+// @version           3.7
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -60,7 +60,7 @@
     goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks',
     ua: 'netdisk;1.0.1',
     one_parse: {
-      code: 'bd-2',
+      code: '1.0.2',
       version: '1.1.4'
     },
     wx_parse: {
@@ -233,7 +233,7 @@
               return;
             }
             let one_url = wwConfig.mainUrl + '/wp/getCodeNum';
-            share_one_baidu(openInfoLayer, one_url, wwConfig.one_parse.code, wwConfig.one_parse.version);
+            share_one_baidu(openInfoLayer, one_url, wwConfig.one_parse.code, wwConfig.one_parse.version, 1);
           });
 
           $('#parseWxBtn').on('click', async function () {
@@ -248,7 +248,7 @@
                 return;
               }
               let one_url = wwConfig.mainUrl + '/wp/getPcCodeNum';
-              share_one_baidu(openInfoLayer, one_url, captchaStr, wwConfig.wx_parse.version);
+              share_one_baidu(openInfoLayer, one_url, captchaStr, wwConfig.wx_parse.version, 2);
             } else {
               layer.msg('请输入验证码');
             }
@@ -273,7 +273,7 @@
       confirmButtonText: '点击下载Gopeed',
       confirmButtonColor: "#dd6b55",
     }).then(function () {
-      window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
+      window.open('');
     });
   }
 
@@ -348,7 +348,7 @@
     }
 
   }
-  function share_one_baidu(openInfoLayer, url, code, version) {
+  function share_one_baidu(openInfoLayer, url, code, version, type) {
     let select = Object.keys(selectList());
     let bdstoken = '';
     let data_json = {};
@@ -422,13 +422,23 @@
               });
               if (res.code == 200) {
                 wwConfig.code = code;
-                if (res.data > 100 || res.data.data > 100) {
+                if (res.data > 100 || (res.data.data == 100 & res.data.vip == 0)) {
+                  let download_url = '';
+                  switch (type) {
+                    case 1:
+                      download_url = wwConfig.mainUrl + '/wp/dlink';
+                      break;
+                    case 2:
+                      download_url = wwConfig.mainUrl + '/wp/fast/pc/dlink';
+                      break;
+                  }
                   get_down_list(
                     shorturl,
                     wwConfig.bdPassword,
                     openInfoLayer,
                     res.data,
-                    laysermsg
+                    laysermsg,
+                    download_url
                   );
                 }
                 else if (res.data == 80 || res.data.data == 80) {
@@ -474,7 +484,7 @@
     });
   }
 
-  async function get_down_list(shorturl, password, openInfoLayer, pwd, laysermsg) {
+  async function get_down_list(shorturl, password, openInfoLayer, pwd, laysermsg, downloadUrl) {
     let ajax_data = {
       shorturl: shorturl,
       pwd: password,
@@ -522,7 +532,7 @@
           console.log(requestData);
           GM_xmlhttpRequest({
             method: 'POST',
-            url: wwConfig.mainUrl + '/wp/dlink',
+            url: downloadUrl,
             headers: {
               'Content-Type': 'application/json',
             },
@@ -610,14 +620,18 @@
       }),
     }).then((resp) => resp.json())
       .then((res) => {
-        layer.confirm(`请打开 Gopeed 查看 <span style="color:rgba(5,150,105,1);">${item.server_filename}</span> 是否开始下载？未下载成功，先设置IDM/NDM User-Agent:<code>` + wwConfig.ua + `</code>，再复制直链下载！`, {
-          btn: ['已下载，关闭弹窗', '未下载，复制直链']
-        }, function (index) {
-          layer.close(index);
-        }, function () {
-          GM_setClipboard(wwConfig.url, "text");
-          layer.msg(`${item.server_filename} 的直链复制成功！`);
-        });
+        layer.confirm(`请打开 Gopeed 查看 <span style="color:rgba(5,150,105,1);">${item.server_filename}</span> 是否开始下载？未下载成功，先设置IDM/NDM User-Agent:<code>` + wwConfig.ua + `</code>，再复制直链下载！`,
+          {
+            btn: ['已下载，关闭弹窗', '未下载，复制直链'],
+            closeBtn: 0,
+          }, function (index) {
+            layer.close(index);
+            $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+          }, function () {
+            GM_setClipboard(wwConfig.url, "text");
+            layer.msg(`${item.server_filename} 的直链复制成功！`);
+            $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+          });
       }).catch(e => {
       })
   }
