@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           3.8
+// @version           3.9
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -273,7 +273,7 @@
       confirmButtonText: '点击下载Gopeed',
       confirmButtonColor: "#dd6b55",
     }).then(function () {
-      window.open('');
+      window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
     });
   }
 
@@ -341,7 +341,22 @@
           btn2: function (index) {
             window.open('https://fk.wwkejishe.top/buy/23');
           }
+        });
+        break;
+      case 4:
+        layer.alert('解析失败，请升级插件或者使用网页稳定版地址！', {
+          title: '提示',
+          closeBtn: 0,
+          btn: ['确定', '前往快速下载'],
+          btn1: function (index) {
+            $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+            layer.close(index);
+          },
+          btn2: function (index) {
+            window.open('https://fk.wwkejishe.top/buy/23');
+          }
         })
+        break;
       default:
         wwConfig.one_parse.version = 1;
         break;
@@ -459,10 +474,7 @@
               } else if (res.code == 500) {
                 layer.close(openInfoLayer);
                 layer.close(laysermsg);
-                swal({
-                  text: res.msg,
-                  icon: 'warning',
-                });
+                init_parse(4);
               }
             });
         }
@@ -543,10 +555,11 @@
               if (responseData.code !== 200) {
                 layer.close(openInfoLayer);
                 layer.close(laysermsg);
-                swal({
-                  text: responseData.msg,
-                  icon: 'warning',
-                });
+                // swal({
+                //   text: responseData.msg,
+                //   icon: 'warning',
+                // });
+                init_parse(4);
               } else {
                 layer.close(laysermsg);
                 $('#parseBtn').html('<p>发送到Gopeed</p>');
