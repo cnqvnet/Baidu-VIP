@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           3.9
+// @version           4.0
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -145,16 +145,20 @@
                   <div class="demo-send-container">
                     <div>
                       <p>插件解析限制 <span class="piao">2</span> 次</p>
-                      <p>
-                        ⚠️❗ Gopeed 下载器一定要配置好 User-Agent 和端口: <a style="color:red;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看 Gopeed 配置教程说明</a>
+                      <p style="font-weight:900;">
+                        ⚠️❗ 一定要先配置好 Gopeed 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看 Gopeed 配置教程说明</a>
                       </p>
                       <p>
                         不限次数 PC 网页稳定版: <a style="color:red;font-weight:900;" target="_blank" href="https://pandown.mlover.site/">点击前往</a>
                       </p>
+                      <p>
+                       部分校园网可能不支持解析
+                      </p>
                     </div>
                     <div class="layui-btn-container">
-                      <button style="margin-top:30px; border-radius: 8px;" id="copyUaBtn" class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">复制User-Agent</button>
-                      <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">发送到Gopeed</button>
+                    <button style="margin-top:30px; border-radius: 8px;" id="gopeedSetBtn" class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">1️⃣ Gopeed设置教程</button>
+                      <button style="margin-top:10px; border-radius: 8px;" id="copyUaBtn" class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">2️⃣ 复制User-Agent</button>
+                      <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">3️⃣ 发送到Gopeed</button>
                     </div>
                   </div>
                 </div>
@@ -259,6 +263,9 @@
           $('#copyUaBtn').on('click', function () {
             copy_text(wwConfig.ua, 'User-Agent');
           });
+          $('#gopeedSetBtn').on('click', function () {
+            openUrl('https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL');
+          })
         },
       });
     });
@@ -273,8 +280,12 @@
       confirmButtonText: '点击下载Gopeed',
       confirmButtonColor: "#dd6b55",
     }).then(function () {
-      window.open('https://pan.quark.cn/s/0b2e9c6e94b0');
+      openUrl('https://pan.quark.cn/s/0b2e9c6e94b0');
     });
+  }
+
+  function openUrl(url) {
+    window.open(url);
   }
 
   function selectList() {
@@ -312,7 +323,7 @@
               layer.close(index);
             },
             btn2: function (index) {
-              window.open('https://fk.wwkejishe.top/buy/23');
+              openUrl('https://fk.wwkejishe.top/buy/23');
             }
           });
         }, 3000);
@@ -339,7 +350,7 @@
             layer.close(index);
           },
           btn2: function (index) {
-            window.open('https://fk.wwkejishe.top/buy/23');
+            openUrl('https://fk.wwkejishe.top/buy/23');
           }
         });
         break;
@@ -353,7 +364,7 @@
             layer.close(index);
           },
           btn2: function (index) {
-            window.open('https://fk.wwkejishe.top/buy/23');
+            openUrl('https://fk.wwkejishe.top/buy/23');
           }
         })
         break;
