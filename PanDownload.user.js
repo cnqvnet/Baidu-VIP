@@ -60,7 +60,7 @@
     goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks',
     ua: 'netdisk;1.0.1',
     one_parse: {
-      code: '1.0.3',
+      code: '1.0.4',
       version: '1.1.4'
     },
     wx_parse: {
