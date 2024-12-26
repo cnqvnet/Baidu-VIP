@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           4.3
+// @version           4.4
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -51,6 +51,9 @@
   GM_addStyle(layuiCss + `
     .layui-icon-close:before {
       content: "x" !important;
+    }
+    li {
+      list-style: normal !important;
     }
   `);
   const wwConfig = {
@@ -133,95 +136,134 @@
         anim: 0,
         content: `
           <div class="layui-tab layui-tab-brief" style="background-color: #f8f8f8; border-radius: 8px;">
-            <ul class="layui-tab-title" style="background-color: #fff; border-bottom: 1px solid #e6e6e6;">
-              <li class="layui-this">免费解析</li>
-              <li>验证码解析</li>
-              <li>稳定解析</li>
-              <li>防止失联</li>
-            </ul>
-            <div class="layui-tab-content" style="padding: 20px;">
-              <div class="layui-tab-item layui-show">
-                <div class="layui-form" lay-filter="filter-test-layer" style="width:360px;margin: 16px auto 0; background-color: #fff; border-radius: 8px; padding: 20px;">
-                  <div class="demo-send-container">
-                    <div>
-                      <p>插件解析限制 <span class="piao">2</span> 次</p>
-                      <p style="font-weight:900;">
-                        ⚠️❗ 一定要先配置好 Gopeed 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank" href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看 Gopeed 配置教程说明</a>
-                      </p>
-                      <p>
-                        不限次数 PC 网页稳定版: <a style="color:red;font-weight:900;" target="_blank" href="https://pandown.mlover.site/">点击前往</a>
-                      </p>
-                      <p>
-                       部分校园网可能不支持解析
-                      </p>
-                    </div>
-                    <div class="layui-btn-container">
-                    <button style="margin-top:30px; border-radius: 8px;" id="gopeedSetBtn" class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">1️⃣ Gopeed设置教程</button>
-                      <button style="margin-top:10px; border-radius: 8px;" id="copyUaBtn" class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">2️⃣ 复制User-Agent</button>
-                      <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">3️⃣ 发送到Gopeed</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
-                <div>
-                  <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
-                </div>   
-                <h2 class="h2" style="margin-top: 10px;">扫描上方二维码，获取验证码</h2>
-                <h3>每天随机解析5-10次</h3>
-                  <div>
-                    <input type="text" name="captcha" id="captcha" value="" lay-verify="required" placeholder="请填写验证码" lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
-                  </div>
-                  <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseWxBtn" class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-wx-send">发送到Gopeed</button>
-              </div>
-              <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
-                <p><span style="font-weight: 900;">`+ GM_info.script.name + `</span> 最新的脚本版本号为：<span style="font-weight: 900;">` + GM_info.script.version + `</span></p>
-                <p>&nbsp;</p>
-                <p><a href="https://fk.wwkejishe.top/buy/23" target="_blank" style="font-weight: 900;color: #409eff;">
-                  购买月卡：不限次数、不限制文件大小、不限速</a></p>
-                <p>
-                <p>&nbsp;</p>
-                <figure class='table-figure'>
-                  <table class="layui-table" style="border-collapse: separate;">
-                    <thead>
-                      <tr>
-                        <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度VIP</th>
-                        <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度SVIP</th>
-                        <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">
-                          <a href='https://fk.wwkejishe.top/buy/23' target='_blank' style='color: #007bff; text-decoration: none;'>Pandownload月卡</a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥25/月</td>
-                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥40/月</td>
-                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">￥9/月</td>
-                      </tr>
-                      <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">20G/月</td>
-                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">不限制</td>
-                        <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">不限制文件大小、不限制文件数量、高速下载</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </figure>
-                <p>&nbsp;</p>
-                <p>
-                  <a href="http://vip.jiufei.com/lin/GI5LG4?refer=1661" target="_blank" style="color: #007bff; text-decoration: none;">点击购买（高质量）网盘会员</a>：￥3/4天，￥7.5/25天，￥22.8/年
-                </p>
-                <p>&nbsp;</p>
-                <p>2023-2024 © Github By <a style="color:#007bff;" href="https://github.com/dongyubin/Baidu-VIP" target="_blank">@dongyubin</a></p>
-              </div>
-              <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
-                <div>
-                  <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
-                </div>   
-                <h2 class="h2" style="margin-top: 10px;">扫一扫，不失联</h2>
-                <h3 class="h2" style="margin-top: 10px;">众所周知，脚本不可能每时每刻都能用。关注不迷路 ~</h3>
-              </div>
+    <ul class="layui-tab-title" style="background-color: #fff; border-bottom: 1px solid #e6e6e6;">
+      <li class="layui-this">免费解析</li>
+      <li>验证码解析</li>
+      <li>稳定解析</li>
+      <li>防止失联</li>
+      <li>问题反馈</li>
+    </ul>
+    <div class="layui-tab-content" style="padding: 20px;">
+      <div class="layui-tab-item layui-show">
+        <div class="layui-form" lay-filter="filter-test-layer"
+          style="width:360px;margin: 16px auto 0; background-color: #fff; border-radius: 8px; padding: 20px;">
+          <div class="demo-send-container">
+            <div>
+              <p style="font-weight:900;">请更新到最新版本再使用</p>
+              <p>插件解析限制 <span class="piao">2</span> 次</p>
+              <p style="font-weight:900;">
+                ⚠️❗ 一定要先配置好 Gopeed 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
+                  href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看 Gopeed 配置教程说明</a>
+              </p>
+              <p>
+                不限次数 PC 网页稳定版: <a style="color:red;font-weight:900;" target="_blank"
+                  href="https://pandown.mlover.site/">点击前往</a>
+              </p>
+              <p>
+                部分校园网可能不支持解析
+              </p>
+            </div>
+            <div class="layui-btn-container">
+              <button style="margin-top:30px; border-radius: 8px;" id="gopeedSetBtn"
+                class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">1️⃣
+                Gopeed设置教程</button>
+              <button style="margin-top:10px; border-radius: 8px;" id="copyUaBtn"
+                class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">2️⃣
+                复制User-Agent</button>
+              <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn"
+                class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">3️⃣ 发送到Gopeed</button>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
+        <div>
+          <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
+        </div>
+        <h2 class="h2" style="margin-top: 10px;">扫描上方二维码，获取验证码</h2>
+        <h3>每天随机解析5-10次</h3>
+        <div>
+          <input type="text" name="captcha" id="captcha" value="" lay-verify="required" placeholder="请填写验证码"
+            lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
+        </div>
+        <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseWxBtn"
+          class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-wx-send">发送到Gopeed</button>
+      </div>
+      <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
+        <p><span style="font-weight: 900;">`+ GM_info.script.name + `</span> 最新的脚本版本号为：<span style="font-weight: 900;">`
+          + GM_info.script.version + `</span></p>
+        <p>&nbsp;</p>
+        <p>
+          <a href="https://fk.wwkejishe.top/buy/23" target="_blank" style="font-weight: 900;color: #409eff;">
+            购买月卡：不限次数、不限制文件大小、不限速、批量下载</a>
+        </p>
+        <p>
+        <p>&nbsp;</p>
+        <figure class='table-figure'>
+          <table class="layui-table" style="border-collapse: separate;">
+            <thead>
+              <tr>
+                <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度VIP</th>
+                <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度SVIP</th>
+                <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">
+                  <a href='https://fk.wwkejishe.top/buy/23' target='_blank'
+                    style='color: #007bff; text-decoration: none;'>Pandownload月卡</a>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥25/月</td>
+                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥40/月</td>
+                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">￥9/月</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">20G/月</td>
+                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">不限制</td>
+                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">
+                  不限制文件大小、不限制文件数量、批量高速下载</td>
+              </tr>
+            </tbody>
+          </table>
+        </figure>
+        <p>&nbsp;</p>
+        <div>
+          <ul>
+            <li>
+              <a href="http://vip.jiufei.com/lin/GI5LG4?refer=1661" target="_blank"
+                style="color: #007bff; text-decoration: none;">点击购买（高质量）网盘会员</a>：￥3/4天，￥7.5/25天，￥22.8/年
+            </li>
+            <li>点击购买百度网盘SVIP会员：
+              <a href="https://snsyun.baidu.com/sl/hqJOZTa" target="_blank"
+                style="color: #007bff; text-decoration: none;">（官方月卡）</a>、
+              <a href="https://snsyun.baidu.com/sl/dDHTo7R" target="_blank"
+                style="color: #007bff; text-decoration: none;">（官方季卡）</a>、
+              <a href="https://snsyun.baidu.com/sl/eQI7jEU" target="_blank"
+                style="color: #007bff; text-decoration: none;">（官方年卡）</a>
+            </li>
+          </ul>
+        </div>
+        <p>&nbsp;</p>
+        <p>2023-2024 © Github By <a style="color:#007bff;" href="https://github.com/dongyubin/Baidu-VIP"
+            target="_blank">@dongyubin</a></p>
+      </div>
+      <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
+        <div>
+          <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
+        </div>
+        <h2 class="h2" style="margin-top: 10px;">扫一扫，不失联</h2>
+        <h3 class="h2" style="margin-top: 10px;">众所周知，脚本不可能每时每刻都能用。关注不迷路 ~</h3>
+      </div>
+      <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
+        <p>
+        好用的话，请给个好评，带上截图就更好了！<a href="https://greasyfork.org/zh-CN/scripts/518023-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98svip%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E7%9B%B4%E9%93%BE%E7%9A%84%E4%B8%8D%E9%99%90%E9%80%9F%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6pandownload/feedback" target="_blank" style="color: #007bff; text-decoration: none;">点击前往</a>
+        </p>
+        <p>
+          有问题请带图反馈，我会尽快修复！
+        </p>
+      </div>
+    </div>
+  </div>
         `,
         success: function () {
           // 对弹层中的表单进行初始化渲染
