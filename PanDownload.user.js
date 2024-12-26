@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           4.4
+// @version           4.5
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -68,7 +68,20 @@
     },
     wx_parse: {
       version: "1.0.9"
-    }
+    },
+    gopeed: {
+      name: 'GoPeed',
+      url: 'https://pan.quark.cn/s/0b2e9c6e94b0'
+    },
+    ndm: {
+      name: 'NDM',
+      url: 'https://neatdownloadmanager.com/index.php/en/'
+    },
+    idm: {
+      name: 'IDM',
+      url: 'https://www.wangdu.site/software/tools/380.html'
+    },
+    monthCard: 'https://fk.wwkejishe.top/buy/23'
   };
   layui.use(['layer'], async function () {
     var layer = layui.layer,
@@ -152,7 +165,7 @@
               <p style="font-weight:900;">请更新到最新版本再使用</p>
               <p>插件解析限制 <span class="piao">2</span> 次</p>
               <p style="font-weight:900;">
-                ⚠️❗ 一定要先配置好 Gopeed 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
+                ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
                   href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看 Gopeed 配置教程说明</a>
               </p>
               <p>
@@ -194,8 +207,8 @@
           + GM_info.script.version + `</span></p>
         <p>&nbsp;</p>
         <p>
-          <a href="https://fk.wwkejishe.top/buy/23" target="_blank" style="font-weight: 900;color: #409eff;">
-            购买月卡：不限次数、不限制文件大小、不限速、批量下载</a>
+          <a href="`+ wwConfig.monthCard + `" target="_blank" style="font-weight: 900;color: #409eff;">
+            购买月卡：不限次数、不限制文件大小、不限速、批量下载</a>（搭配<a href="https://greasyfork.org/zh-CN/scripts/521641" target="_blank" style="font-weight: 900;color: #409eff;">油猴脚本</a>在解析时可获取网盘直链，使用<a href="`+ wwConfig.ndm.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.ndm.name + `</a>、<a href="` + wwConfig.idm.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.idm.name + `</a>下载）
         </p>
         <p>
         <p>&nbsp;</p>
@@ -206,7 +219,7 @@
                 <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度VIP</th>
                 <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度SVIP</th>
                 <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">
-                  <a href='https://fk.wwkejishe.top/buy/23' target='_blank'
+                  <a href='`+ wwConfig.monthCard + `' target='_blank'
                     style='color: #007bff; text-decoration: none;'>Pandownload月卡</a>
                 </th>
               </tr>
@@ -365,7 +378,7 @@
               layer.close(index);
             },
             btn2: function (index) {
-              openUrl('https://fk.wwkejishe.top/buy/23');
+              openUrl(wwConfig.monthCard);
             }
           });
         }, 3000);
@@ -392,7 +405,7 @@
             layer.close(index);
           },
           btn2: function (index) {
-            openUrl('https://fk.wwkejishe.top/buy/23');
+            openUrl(wwConfig.monthCard);
           }
         });
         break;
@@ -406,7 +419,7 @@
             layer.close(index);
           },
           btn2: function (index) {
-            openUrl('https://fk.wwkejishe.top/buy/23');
+            openUrl(wwConfig.monthCard);
           }
         })
         break;
@@ -416,7 +429,7 @@
           closeBtn: 0,
           btn: ['前往快速下载'],
           btn1: function (index) {
-            openUrl('https://fk.wwkejishe.top/buy/23');
+            openUrl(wwConfig.monthCard);
             layer.close(index);
           }
         })
@@ -524,7 +537,7 @@
                   init_parse(1);
                 }
                 else if (res.data == 60 || res.data.data == 60) {
-                  init_parse(1);
+                  init_parse(3);
                 }
                 else if (res.data == 50 || res.data.data == 50) {
                   init_parse(2);
