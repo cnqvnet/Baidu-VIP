@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           4.5
+// @version           4.6
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -81,7 +81,8 @@
       name: 'IDM',
       url: 'https://www.wangdu.site/software/tools/380.html'
     },
-    monthCard: 'https://fk.wwkejishe.top/buy/23'
+    monthCard: 'https://fk.wwkejishe.top/buy/23',
+    wechatCode: '验证码'
   };
   layui.use(['layer'], async function () {
     var layer = layui.layer,
@@ -193,14 +194,21 @@
         <div>
           <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
         </div>
-        <h2 class="h2" style="margin-top: 10px;">扫描上方二维码，获取验证码</h2>
+        <h2 class="h2" style="margin-top: 10px;">扫描上方二维码，发送口令获取验证码</h2>
         <h3>每天随机解析5-10次</h3>
+        <p>
+          <a style="color: red;font-weight:900;" target="_blank"
+            href="https://www.wangdu.site/software/tools/948.html">无限制获取验证码</a>
+        </p>
         <div>
           <input type="text" name="captcha" id="captcha" value="" lay-verify="required" placeholder="请填写验证码"
             lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
         </div>
+        <button style="margin-top:30px; border-radius: 8px;" id="copyWechatBtn"
+                class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">1️⃣
+                复制微信口令</button>
         <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseWxBtn"
-          class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-wx-send">发送到Gopeed</button>
+          class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-wx-send">2️⃣ 发送到Gopeed</button>
       </div>
       <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
         <p><span style="font-weight: 900;">`+ GM_info.script.name + `</span> 最新的脚本版本号为：<span style="font-weight: 900;">`
@@ -318,6 +326,9 @@
           $('#copyUaBtn').on('click', function () {
             copy_text(wwConfig.ua, 'User-Agent');
           });
+          $('#copyWechatBtn').on('click', function () {
+            copy_text(wwConfig.wechatCode, '微信口令');
+          })
           $('#gopeedSetBtn').on('click', function () {
             openUrl('https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL');
           })
