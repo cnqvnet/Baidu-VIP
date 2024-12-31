@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文武直链助手-百度网盘在线解析网页直链获取助手
 // @namespace    https://github.com/dongyubin/Baidu-VIP
-// @version      0.1
+// @version      0.2
 // @description  不限制速度的百度网盘SVIP解析直链网页获取助手，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具
 // @author       DongYubin
 // @homepage     https://fk.wwkejishe.top/buy/23
@@ -50,7 +50,7 @@ addXMLRequestCallback(function (xhr) {
     if (xhr.readyState == 4 && xhr.status == 200) {
       const url = xhr.responseURL;
       // console.log('拦截返回：', xhr);
-      if (url.includes('https://aifenxiang.net.cn:8081/wp/fast/pc/dlink')) {
+      if (url.includes('https://api.aifenxiang.net.cn/wp/fast/pc/dlink')) {
         try {
           const responseData = JSON.parse(xhr.responseText);
           const downloadUrl = responseData.data.data.urls[0].url;
@@ -69,7 +69,7 @@ addXMLRequestCallback(function (xhr) {
         } catch (e) {
           console.error('解析响应时出错: ', e);
         }
-      } else if (url.includes('https://aifenxiang.net.cn:8081/wp/dlink')) {
+      } else if (url.includes('https://api.aifenxiang.net.cn/wp/dlink')) {
         try {
           const responseData = JSON.parse(xhr.responseText);
           const downloadUrl = responseData.data.data[0].url;
