@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           4.9
+// @version           5.0
 // @description       不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -170,8 +170,14 @@
                   href="https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL">点击查看 Gopeed 配置教程说明</a>
               </p>
               <p>
-                不限次数 PC 网页稳定版: <a style="color:red;font-weight:900;" target="_blank"
+                不限次数 PC 网页稳定版(<a href='`+ wwConfig.monthCard + `' target='_blank'
+                    style='color: #007bff; text-decoration: none;'>购买月卡登录</a>): 
+                <!--
+                <a style="color:red;font-weight:900;" target="_blank"
                   href="https://pandown.mlover.site/">点击前往</a>
+                  -->
+                  <a style="color:red;font-weight:900;" target="_blank"
+                  href="https://aifenxiang.net.cn/vip/login">点击前往</a>
               </p>
               <p>
                 部分校园网可能不支持解析
