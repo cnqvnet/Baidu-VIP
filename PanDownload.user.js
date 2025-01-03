@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           5.2
+// @version           5.3
 // @description       2025年持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -82,7 +82,9 @@
       url: 'https://www.wangdu.site/software/tools/380.html'
     },
     monthCard: 'https://fk.wwkejishe.top/buy/23',
-    wechatCode: '验证码'
+    wechatCode: '验证码',
+    debug_link: 'https://github.com/dongyubin/Baidu-VIP/issues',
+    authorWechat: 'dyb54188'
   };
   layui.use(['layer'], async function () {
     var layer = layui.layer,
@@ -288,6 +290,13 @@
         <p>
           有问题请带图反馈，我会尽快修复！
         </p>
+        <div class="layui-btn-container">
+          <button style="margin-top:10px; border-radius: 8px;" id="goIssues"
+                class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">点击前往提交issues</button>
+          <button style="margin-top:10px; border-radius: 8px;" id="copyAuthorWechat"
+                class="layui-btn layui-btn-fluid" lay-submit lay-filter="gopeed-set">
+                点击复制作者微信号</button>
+        </div>
       </div>
     </div>
   </div>
@@ -337,6 +346,12 @@
           })
           $('#gopeedSetBtn').on('click', function () {
             openUrl('https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL');
+          })
+          $('#goIssues').on('click', function () {
+            openUrl(wwConfig.debug_link);
+          })
+          $('#copyAuthorWechat').on('click', function () {
+            copy_text(wwConfig.authorWechat, '作者微信');
           })
         },
       });
