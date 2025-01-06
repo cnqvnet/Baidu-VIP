@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           5.3
+// @version           5.5
 // @description       2025年持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -61,7 +61,6 @@
     bdPassword: '1234',
     titleName: '文武PanDownload',
     goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks',
-    ua: 'netdisk;1.0.1',
     one_parse: {
       code: '1.0.6',
       version: '1.1.4'
@@ -165,7 +164,7 @@
           style="width:360px;margin: 16px auto 0; background-color: #fff; border-radius: 8px; padding: 20px;">
           <div class="demo-send-container">
             <div>
-              <p style="font-weight:900;">请更新到最新版本再使用</p>
+              <p style="font-weight:900; text-align: center;">请更新到最新版本再使用</p>
               <p>插件解析限制 <span class="piao">2</span> 次</p>
               <p style="font-weight:900;">
                 ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
@@ -174,12 +173,8 @@
               <p>
                 不限次数 PC 网页稳定版(<a href='`+ wwConfig.monthCard + `' target='_blank'
                     style='color: #007bff; text-decoration: none;'>购买月卡登录</a>): 
-                <!--
                 <a style="color:red;font-weight:900;" target="_blank"
                   href="https://pandown.mlover.site/">点击前往</a>
-                  -->
-                  <a style="color:red;font-weight:900;" target="_blank"
-                  href="https://aifenxiang.net.cn/vip/login">点击前往</a>
               </p>
               <p>
                 部分校园网可能不支持解析
@@ -189,11 +184,13 @@
               <button style="margin-top:30px; border-radius: 8px;" id="gopeedSetBtn"
                 class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">1️⃣
                 Gopeed设置教程</button>
+                <!--
               <button style="margin-top:10px; border-radius: 8px;" id="copyUaBtn"
                 class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">2️⃣
                 复制User-Agent</button>
+                -->
               <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn"
-                class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">3️⃣ 发送到Gopeed</button>
+                class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">2️⃣ 发送到Gopeed</button>
             </div>
           </div>
         </div>
@@ -674,6 +671,7 @@
                   wwConfig.ua = responseData.data.data.ua;
                 } else {
                   wwConfig.url = responseData.data.data.dlink;
+                  wwConfig.ua = responseData.data.data.ua;
                 }
                 sendToGopeed(res.data.data.list[0]);
               }
@@ -739,18 +737,38 @@
       }),
     }).then((resp) => resp.json())
       .then((res) => {
-        layer.confirm(`请打开 Gopeed 查看 <span style="color:rgba(5,150,105,1);">${item.server_filename}</span> 是否开始下载？未下载成功，先设置IDM/NDM User-Agent:<code>` + wwConfig.ua + `</code>，再复制直链下载！`,
-          {
-            btn: ['已下载，关闭弹窗', '未下载，复制直链'],
-            closeBtn: 0,
-          }, function (index) {
+        layer.open({
+          content: `请打开 Gopeed 查看 <span style="color:rgba(5,150,105,1);">${item.server_filename}</span> 是否开始下载？未下载成功，先设置IDM/NDM User-Agent:<code>` + wwConfig.ua + `</code>，再复制直链下载！`,
+          btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
+          closeBtn: 0,
+          type: 1,
+          btn1: function (index, layero, that) {
             layer.close(index);
             $('#parseWxBtn').html('<p>发送到Gopeed</p>');
-          }, function () {
+          },
+          btn2: function (index, layero, that) {
+            GM_setClipboard(wwConfig.ua, "text");
+            layer.msg('UA复制成功！');
+            return false;
+          },
+          btn3: function (index, layero, that) {
             GM_setClipboard(wwConfig.url, "text");
             layer.msg(`${item.server_filename} 的直链复制成功！`);
             $('#parseWxBtn').html('<p>发送到Gopeed</p>');
-          });
+          }
+        });
+        // layer.confirm(`请打开 Gopeed 查看 <span style="color:rgba(5,150,105,1);">${item.server_filename}</span> 是否开始下载？未下载成功，先设置IDM/NDM User-Agent:<code>` + wwConfig.ua + `</code>，再复制直链下载！`,
+        //   {
+        //     btn: ['已下载，关闭弹窗', '未下载，复制直链'],
+        //     closeBtn: 0,
+        //   }, function (index) {
+        //     layer.close(index);
+        //     $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+        //   }, function () {
+        //     GM_setClipboard(wwConfig.url, "text");
+        //     layer.msg(`${item.server_filename} 的直链复制成功！`);
+        //     $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+        //   });
       }).catch(e => {
       })
   }
