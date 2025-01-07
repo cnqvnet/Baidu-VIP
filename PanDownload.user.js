@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           5.6
+// @version           5.7
 // @description       2025年持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -197,14 +197,12 @@
       </div>
       <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
         <div>
-          <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:240px;height:240px;">
+          <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:200px;height:200px;">
         </div>
-        <h2 class="h2" style="margin-top: 10px;">扫描上方二维码，复制下面口令并发送，获取验证码</h2>
-        <h3>每天随机解析5-10次</h3>
-        <p>
-          <a style="color: red;font-weight:900;" target="_blank"
-            href="https://www.wangdu.site/software/tools/948.html">无限制获取验证码</a>
-        </p>
+        <h2 class="h2" style="margin-top: 10px;">获取验证码：扫描二维码，复制下面口令并发送</h2>
+        <div>每天随机解析5-10次（<a style="color: red;font-weight:900;" target="_blank"
+            href="https://www.wangdu.site/software/tools/948.html">无限制获取验证码</a>）
+        </div>
         <div>
           <input type="text" name="captcha" id="captcha" value="" lay-verify="required" placeholder="请填写验证码"
             lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
@@ -580,7 +578,7 @@
               } else if (res.code == 500) {
                 layer.close(openInfoLayer);
                 layer.close(laysermsg);
-                init_parse(4);
+                init_parse(3);
               }
             });
         }
@@ -644,7 +642,7 @@
             pwd: password,
             dir: '/',
           };
-          console.log(requestData);
+          // console.log(requestData);
           GM_xmlhttpRequest({
             method: 'POST',
             url: downloadUrl,
@@ -654,7 +652,7 @@
             data: JSON.stringify(requestData),
             onload: function (response) {
               const responseData = JSON.parse(response.responseText);
-              console.log(responseData);
+              // console.log(responseData);
               if (responseData.code !== 200) {
                 layer.close(openInfoLayer);
                 layer.close(laysermsg);
@@ -662,7 +660,7 @@
                 //   text: responseData.msg,
                 //   icon: 'warning',
                 // });
-                init_parse(4);
+                init_parse(3);
               } else {
                 layer.close(laysermsg);
                 $('#parseBtn').html('<p>发送到Gopeed</p>');
