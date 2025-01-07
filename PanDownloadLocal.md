@@ -4,6 +4,8 @@
 
 Github By [@dongyubin](https://github.com/dongyubin/Baidu-VIP)
 
+[脚本使用教程](https://flowus.cn/wwkejishe/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL)
+
 ## 概述 / Overview
 
 只支持在 [文武Download网页版](https://pandown.mlover.site/) 使用，不支持在百度网盘网页端使用。
