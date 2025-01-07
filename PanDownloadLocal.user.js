@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文武直链助手-百度网盘在线解析网页直链获取助手
 // @namespace    https://github.com/dongyubin/Baidu-VIP
-// @version      0.4
+// @version      0.5
 // @description  不限制速度的百度网盘SVIP解析直链网页获取助手，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具
 // @author       DongYubin
 // @homepage     https://fk.wwkejishe.top/buy/23
@@ -47,36 +47,7 @@ addXMLRequestCallback(function (xhr) {
     if (xhr.readyState == 4 && xhr.status == 200) {
       const url = xhr.responseURL;
       // console.log('拦截返回：', xhr);
-      if (url.includes('https://api.aifenxiang.net.cn/wp/fast/pc/dlink')) {
-        try {
-          const responseData = JSON.parse(xhr.responseText);
-          const downloadUrl = responseData.data.data.urls[0].url;
-          const ua = responseData.data.data.ua;
-          layer.open({
-            content: `未下载成功，先设置IDM/NDM User-Agent:<code>` + ua + `</code>，再复制直链下载！`,
-            btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
-            closeBtn: 0,
-            type: 1,
-            btn1: function (index, layero, that) {
-              layer.close(index);
-            },
-            btn2: function (index, layero, that) {
-              GM_setClipboard(ua, "text");
-              layer.msg('UA复制成功！');
-              return false;
-            },
-            btn3: function (index, layero, that) {
-              GM_setClipboard(downloadUrl, "text");
-              layer.msg(`直链复制成功！`);
-              layer.close(index);
-            }
-          });
-          // alert('下载链接: ' + downloadUrl);
-        } catch (e) {
-          console.error('解析响应时出错: ', e);
-        }
-      }
-      else if (url.includes('https://api.aifenxiang.net.cn/wp/dlink')) {
+      if (url.includes('https://api.aifenxiang.net.cn/wp/fast/pc/dlink') || url.includes('https://api.aifenxiang.net.cn/wp/dlink')) {
         try {
           const responseData = JSON.parse(xhr.responseText);
           const downloadUrl = responseData.data.data.dlink;
@@ -100,26 +71,55 @@ addXMLRequestCallback(function (xhr) {
               layer.close(index);
             }
           });
-          // layer.confirm(`未下载成功，先设置IDM/NDM User-Agent:<code>` + ua + `</code>，再复制直链下载！`,
-          //   {
-          //     btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
-          //     closeBtn: 0,
-          //   }, function (index) {
-          //     layer.close(index);
-          //   }, function (index) {
-          //     GM_setClipboard(ua, "text");
-          //     layer.msg(`UA复制成功！`);
-          //     return false;
-          //   }, function () {
-          //     GM_setClipboard(downloadUrl, "text");
-          //     layer.msg(`直链复制成功！`);
-          //     layer.close(index);
-          //   });
           // alert('下载链接: ' + downloadUrl);
         } catch (e) {
           console.error('解析响应时出错: ', e);
         }
       }
+      // else if (url.includes('https://api.aifenxiang.net.cn/wp/dlink')) {
+      //   try {
+      //     const responseData = JSON.parse(xhr.responseText);
+      //     const downloadUrl = responseData.data.data.dlink;
+      //     const ua = responseData.data.data.ua;
+      //     layer.open({
+      //       content: `未下载成功，先设置IDM/NDM User-Agent:<code>` + ua + `</code>，再复制直链下载！`,
+      //       btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
+      //       closeBtn: 0,
+      //       type: 1,
+      //       btn1: function (index, layero, that) {
+      //         layer.close(index);
+      //       },
+      //       btn2: function (index, layero, that) {
+      //         GM_setClipboard(ua, "text");
+      //         layer.msg('UA复制成功！');
+      //         return false;
+      //       },
+      //       btn3: function (index, layero, that) {
+      //         GM_setClipboard(downloadUrl, "text");
+      //         layer.msg(`直链复制成功！`);
+      //         layer.close(index);
+      //       }
+      //     });
+      //     // layer.confirm(`未下载成功，先设置IDM/NDM User-Agent:<code>` + ua + `</code>，再复制直链下载！`,
+      //     //   {
+      //     //     btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
+      //     //     closeBtn: 0,
+      //     //   }, function (index) {
+      //     //     layer.close(index);
+      //     //   }, function (index) {
+      //     //     GM_setClipboard(ua, "text");
+      //     //     layer.msg(`UA复制成功！`);
+      //     //     return false;
+      //     //   }, function () {
+      //     //     GM_setClipboard(downloadUrl, "text");
+      //     //     layer.msg(`直链复制成功！`);
+      //     //     layer.close(index);
+      //     //   });
+      //     // alert('下载链接: ' + downloadUrl);
+      //   } catch (e) {
+      //     console.error('解析响应时出错: ', e);
+      //   }
+      // }
     }
 
   });
