@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           5.8
+// @version           5.9
 // @description       2025年持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -195,7 +195,7 @@
         </div>
       </div>
       -->
-      <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
+      <div class="layui-tab-item layui-show" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
         <p style="font-weight:900; text-align: center;">请更新到最新版本再使用</p>
         <p style="font-weight:900;">
           ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
