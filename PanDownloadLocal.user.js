@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         文武直链助手-百度网盘在线解析网页直链获取助手
 // @namespace    https://github.com/dongyubin/Baidu-VIP
-// @version      0.7
+// @version      0.8
 // @description  不限制速度的百度网盘SVIP解析直链网页获取助手，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具
 // @author       DongYubin
 // @homepage     https://fk.wwkejishe.top/buy/23
@@ -39,6 +39,10 @@ function addXMLRequestCallback(callback) {
       oldSend.apply(this, arguments);
     }
   }
+}
+
+const wwConfig = {
+  goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks',
 }
 
 // e.g.
@@ -79,27 +83,29 @@ addXMLRequestCallback(function (xhr) {
       else if (url.includes('https://api.aifenxiang.net.cn/wp/pc/dlink')) {
         try {
           const responseData = JSON.parse(xhr.responseText);
-          const downloadUrl = responseData.data.dlink;
-          const ua = responseData.data.ua;
-          layer.open({
-            content: `未下载成功，先设置IDM/NDM User-Agent:<code>` + ua + `</code>，再复制直链下载！`,
-            btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
-            closeBtn: 0,
-            type: 1,
-            btn1: function (index, layero, that) {
-              layer.close(index);
-            },
-            btn2: function (index, layero, that) {
-              GM_setClipboard(ua, "text");
-              layer.msg('UA复制成功！');
-              return false;
-            },
-            btn3: function (index, layero, that) {
-              GM_setClipboard(downloadUrl, "text");
-              layer.msg(`直链复制成功！`);
-              layer.close(index);
-            }
-          });
+          wwConfig.downloadUrl = responseData.data.dlink;
+          wwConfig.ua = responseData.data.ua;
+          wwConfig.filename = responseData.data.filename;
+          sendToGopeed();
+          // layer.open({
+          //   content: `未下载成功，先设置IDM/NDM User-Agent:<code>` + ua + `</code>，再复制直链下载！`,
+          //   btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
+          //   closeBtn: 0,
+          //   type: 1,
+          //   btn1: function (index, layero, that) {
+          //     layer.close(index);
+          //   },
+          //   btn2: function (index, layero, that) {
+          //     GM_setClipboard(ua, "text");
+          //     layer.msg('UA复制成功！');
+          //     return false;
+          //   },
+          //   btn3: function (index, layero, that) {
+          //     GM_setClipboard(downloadUrl, "text");
+          //     layer.msg(`直链复制成功！`);
+          //     layer.close(index);
+          //   }
+          // });
           // layer.confirm(`未下载成功，先设置IDM/NDM User-Agent:<code>` + ua + `</code>，再复制直链下载！`,
           //   {
           //     btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
@@ -144,3 +150,50 @@ addXMLRequestCallback(function (xhr) {
 //     });
 //   };
 // })();
+
+function sendToGopeed() {
+  fetch(wwConfig.goPeedTaskUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      req:
+      {
+        url: wwConfig.downloadUrl,
+        extra: {
+          header: {
+            "User-Agent": wwConfig.ua,
+          }
+        }
+      },
+      opt: {
+        extra: {
+          connections: 256,
+        }
+      }
+    }),
+  }).then((resp) => resp.json())
+    .then((res) => {
+      layer.open({
+        content: `请打开 Gopeed 查看 <span style="color:rgba(5,150,105,1);">${wwConfig.filename}</span> 是否开始下载？未下载成功，先设置IDM/NDM User-Agent:<code>` + wwConfig.ua + `</code>，再复制直链下载！`,
+        btn: ['已下载，关闭弹窗', '复制UA', '未下载，复制直链'],
+        closeBtn: 0,
+        type: 1,
+        btn1: function (index, layero, that) {
+          layer.close(index);
+        },
+        btn2: function (index, layero, that) {
+          GM_setClipboard(wwConfig.ua, "text");
+          layer.msg('UA复制成功！');
+          return false;
+        },
+        btn3: function (index, layero, that) {
+          GM_setClipboard(wwConfig.url, "text");
+          layer.msg(`${wwConfig.filename} 的直链复制成功！`);
+          layer.close(index);
+        }
+      });
+    }).catch(e => {
+    })
+}
