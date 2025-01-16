@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           6.2
+// @version           6.3
 // @description       2025年1月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -62,7 +62,7 @@
     titleName: '文武PanDownload',
     goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks',
     one_parse: {
-      code: '1.0.7',
+      code: '1.0.8',
       version: '1.1.4'
     },
     wx_parse: {
@@ -80,12 +80,35 @@
       name: 'IDM',
       url: 'https://www.wangdu.site/software/tools/380.html'
     },
+    pandown: {
+      month: 'https://fk.wwkejishe.top/buy/23',
+      quarter: 'https://fk.wwkejishe.top/buy/24',
+      halfYear: 'https://fk.wwkejishe.top/buy/25',
+      year: 'https://fk.wwkejishe.top/buy/26',
+      life: 'https://fk.wwkejishe.top/buy/27'
+    },
     monthCard: 'https://fk.wwkejishe.top/buy/23',
     wechatCode: '验证码',
     debug_link: 'https://github.com/dongyubin/Baidu-VIP/issues',
     authorWechat: 'dyb54188',
     help_document: 'https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL'
   };
+
+  const pandownload_info = `<li>
+              <a href="https://pandown.mlover.site/vip/login" target="_blank"
+                style="color: #007bff; text-decoration: none;">Pandownload</a>会员卡： 
+                  <a href="`+ wwConfig.pandown.month + `" target="_blank"
+                    style="color: #007bff; text-decoration: none;">月卡</a>、
+                  <a href="`+ wwConfig.pandown.quarter + `" target="_blank"
+                    style="color: #007bff; text-decoration: none;">季卡</a>、
+                  <a href="`+ wwConfig.pandown.halfYear + `" target="_blank"
+                    style="color: #007bff; text-decoration: none;">半年卡</a>、
+                  <a href="`+ wwConfig.pandown.year + `" target="_blank"
+                    style="color: #007bff; text-decoration: none;">年卡</a>、
+                  <a href="`+ wwConfig.pandown.life + `" target="_blank"
+                    style="color: #007bff; text-decoration: none;">永久卡</a>
+                </li>`;
+
   layui.use(['layer'], async function () {
     var layer = layui.layer,
       $ = layui.$;
@@ -282,6 +305,7 @@
               <a href="https://snsyun.baidu.com/sl/eQI7jEU" target="_blank"
                 style="color: #007bff; text-decoration: none;">（官方年卡）</a>
             </li>
+            `+ pandownload_info + `
           </ul>
         </div>
         <p>&nbsp;</p>
@@ -450,6 +474,7 @@
           btn: ['确定', '前往快速下载'],
           btn1: function (index) {
             $('#parseWxBtn').html('<p>发送到Gopeed</p>');
+            $('#parseBtn').html('<p>发送到Gopeed</p>');
             layer.close(index);
           },
           btn2: function (index) {
@@ -463,6 +488,7 @@
           closeBtn: 0,
           btn: ['确定', '前往快速下载'],
           btn1: function (index) {
+            $('#parseBtn').html('<p>发送到Gopeed</p>');
             $('#parseWxBtn').html('<p>发送到Gopeed</p>');
             layer.close(index);
           },
