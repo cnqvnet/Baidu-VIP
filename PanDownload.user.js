@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           6.5
+// @version           6.6
 // @description       2025年1月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -62,7 +62,7 @@
     titleName: '文武PanDownload',
     goPeedTaskUrl: 'http://127.0.0.1:9999/api/v1/tasks',
     one_parse: {
-      code: '1.1.0',
+      code: '1.1.1',
       version: '1.1.4'
     },
     wx_parse: {
@@ -93,6 +93,21 @@
     authorWechat: 'dyb54188',
     help_document: 'https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL'
   };
+
+  const danger_info = `<p style="font-weight:900; text-align: center;">请更新到最新版本再使用</p>
+            <p style="font-weight:900;">
+              ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
+                href="`+ wwConfig.help_document + `">点击查看 Gopeed 配置教程说明</a>
+            </p>
+            <p>
+              不限次数 PC 网页稳定版(<a href='`+ wwConfig.monthCard + `' target='_blank'
+                  style='color: #007bff; text-decoration: none;'>购买月卡登录</a>): 
+              <a style="color:red;font-weight:900;" target="_blank"
+                href="https://pandown.mlover.site/">点击前往</a>
+            </p>
+            <p>
+              部分校园网可能不支持解析
+            </p>`;
 
   const pandownload_info = `<li>
               <a href="https://pandown.mlover.site/vip/login" target="_blank"
@@ -176,68 +191,15 @@
         content: `
           <div class="layui-tab layui-tab-brief" style="background-color: #f8f8f8; border-radius: 8px;">
     <ul class="layui-tab-title" style="background-color: #fff; border-bottom: 1px solid #e6e6e6;">
-      <li class="layui-this">免费解析</li>
-      <li>验证码解析</li>
+      <li class="layui-this">验证码解析</li>
+      <li>免费解析</li>
       <li>稳定解析</li>
       <li>防止失联</li>
       <li>常见问题反馈</li>
     </ul>
     <div class="layui-tab-content" style="padding: 20px;">
-      <div class="layui-tab-item layui-show">
-        <div class="layui-form" lay-filter="filter-test-layer"
-          style="width:360px;margin: 16px auto 0; background-color: #fff; border-radius: 8px; padding: 20px;">
-          <div class="demo-send-container">
-            <div class="layui-text">
-              <p style="font-weight:900; text-align: center;">请更新到最新版本再使用</p>
-              <p>插件解析免费 <span class="piao">2</span> 次</p>
-              <p>（提示：解析次数已达上限，代表失效，静等更新。）</p>
-              <p>如果失效，请使用<strong>验证码解析</strong></p>
-              <p style="font-weight:900;">
-                ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
-                  href="`+ wwConfig.help_document + `">点击查看 Gopeed 配置教程说明</a>
-              </p>
-              <p>
-                不限次数 PC 网页稳定版(<a href='`+ wwConfig.monthCard + `' target='_blank'
-                    style='color: #007bff; text-decoration: none;'>购买月卡登录</a>): 
-                <a style="color:red;font-weight:900;" target="_blank"
-                  href="https://pandown.mlover.site/">点击前往</a>
-              </p>
-              <p>
-                部分校园网可能不支持解析
-              </p>
-            </div>
-            <div class="layui-btn-container">
-              <button style="margin-top:30px; border-radius: 8px;" id="gopeedSetBtn"
-                class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">1️⃣
-                Gopeed设置教程</button>
-                <!--
-              <button style="margin-top:10px; border-radius: 8px;" id="copyUaBtn"
-                class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">2️⃣
-                复制User-Agent</button>
-                -->
-              <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn"
-                class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">2️⃣ 发送到Gopeed</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
-      <!--
-        <p style="font-weight:900; text-align: center;">请更新到最新版本再使用</p>
-        <p style="font-weight:900;">
-          ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
-            href="`+ wwConfig.help_document + `">点击查看 Gopeed 配置教程说明</a>
-        </p>
-        -->
-        <p>
-          不限次数 PC 网页稳定版(<a href='`+ wwConfig.monthCard + `' target='_blank'
-              style='color: #007bff; text-decoration: none;'>购买月卡登录</a>): 
-          <a style="color:red;font-weight:900;" target="_blank"
-            href="https://pandown.mlover.site/">点击前往</a>
-        </p>
-        <p>
-          部分校园网可能不支持解析
-        </p>
+      <div class="layui-tab-item layui-show" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
+        `+ danger_info + `
         <div>
           <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:200px;height:200px;">
         </div>
@@ -254,6 +216,31 @@
                 复制微信口令</button>
         <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseWxBtn"
           class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-wx-send">2️⃣ 发送到Gopeed</button>
+      </div>
+      <div class="layui-tab-item">
+        <div class="layui-form" lay-filter="filter-test-layer"
+          style="width:360px;margin: 16px auto 0; background-color: #fff; border-radius: 8px; padding: 20px;">
+          <div class="demo-send-container">
+            <div class="layui-text">
+              <p>插件解析免费 <span style="font-weight:600;">2</span> 次</p>
+              <p>（提示：解析次数已达上限，代表失效，静等更新。）</p>
+              <p>如果失效，请使用<strong>验证码解析</strong></p>
+              `+ danger_info + `
+            </div>
+            <div class="layui-btn-container">
+              <button style="margin-top:30px; border-radius: 8px;" id="gopeedSetBtn"
+                class="layui-btn layui-btn-fluid layui-bg-red" lay-submit lay-filter="gopeed-set">1️⃣
+                Gopeed设置教程</button>
+                <!--
+              <button style="margin-top:10px; border-radius: 8px;" id="copyUaBtn"
+                class="layui-btn layui-btn-fluid layui-bg-orange" lay-submit lay-filter="copy-ua">2️⃣
+                复制User-Agent</button>
+                -->
+              <button style="margin-left:0;margin-top:10px; border-radius: 8px;" id="parseBtn"
+                class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-send">2️⃣ 发送到Gopeed</button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
         <p><span style="font-weight: 900;">`+ GM_info.script.name + `</span> 最新的脚本版本号为：<span style="font-weight: 900;">`
