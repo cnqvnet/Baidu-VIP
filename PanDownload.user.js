@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           6.7
+// @version           6.8
 // @description       2025年1月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -193,7 +193,6 @@
     <ul class="layui-tab-title" style="background-color: #fff; border-bottom: 1px solid #e6e6e6;">
       <li class="layui-this">验证码解析</li>
       <li>免费解析</li>
-      <li>稳定解析</li>
       <li>防止失联</li>
       <li>常见问题反馈</li>
     </ul>
@@ -241,65 +240,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
-        <p><span style="font-weight: 900;">`+ GM_info.script.name + `</span> 最新的脚本版本号为：<span style="font-weight: 900;">`
-          + GM_info.script.version + `</span></p>
-        <p>&nbsp;</p>
-        <p>
-          <a href="`+ wwConfig.monthCard + `" target="_blank" style="font-weight: 900;color: #409eff;">
-            购买月卡：不限次数、不限制文件大小、不限速、批量下载</a>（搭配<a href="https://greasyfork.org/zh-CN/scripts/521641" target="_blank" style="font-weight: 900;color: #409eff;">油猴脚本</a>在解析时可获取网盘直链，使用<a href="`+ wwConfig.ndm.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.ndm.name + `</a>、<a href="` + wwConfig.idm.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.idm.name + `</a>下载）
-        </p>
-        <p>
-        <p>&nbsp;</p>
-        <figure class='table-figure'>
-          <table class="layui-table" style="border-collapse: separate;">
-            <thead>
-              <tr>
-                <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度VIP</th>
-                <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">百度SVIP</th>
-                <th style="background-color: #f8f8f8; border-bottom: 2px solid #e6e6e6; padding: 10px;">
-                  <a href='`+ wwConfig.monthCard + `' target='_blank'
-                    style='color: #007bff; text-decoration: none;'>Pandownload月卡</a>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥25/月</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">￥40/月</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">￥9/月</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">20G/月</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;">不限制</td>
-                <td style="padding: 10px; border-bottom: 1px solid #e6e6e6;color: rgba(5,150,105,1)">
-                  不限制文件大小、不限制文件数量、批量高速下载</td>
-              </tr>
-            </tbody>
-          </table>
-        </figure>
-        <p>&nbsp;</p>
-        <div>
-          <ul>
-            <li>
-              <a href="http://vip.jiufei.com/lin/GI5LG4?refer=1661" target="_blank"
-                style="color: #007bff; text-decoration: none;">点击购买（高质量）网盘会员</a>：￥3/4天，￥7.5/25天，￥22.8/年
-            </li>
-            <li>点击购买百度网盘SVIP会员：
-              <a href="https://snsyun.baidu.com/sl/hqJOZTa" target="_blank"
-                style="color: #007bff; text-decoration: none;">（官方月卡）</a>、
-              <a href="https://snsyun.baidu.com/sl/dDHTo7R" target="_blank"
-                style="color: #007bff; text-decoration: none;">（官方季卡）</a>、
-              <a href="https://snsyun.baidu.com/sl/eQI7jEU" target="_blank"
-                style="color: #007bff; text-decoration: none;">（官方年卡）</a>
-            </li>
-            `+ pandownload_info + `
-          </ul>
-        </div>
-        <p>&nbsp;</p>
-        <p>2023-2024 © Github By <a style="color:#007bff;" href="https://github.com/dongyubin/Baidu-VIP"
-            target="_blank">@dongyubin</a></p>
       </div>
       <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;text-align: center;">
         <div>
