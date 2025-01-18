@@ -27,10 +27,11 @@ Extract single file high-speed direct link, convenient to use script assistant, 
 
 ## 版本区别 / Version difference
 
-|                      | [网页端](https://pandown.mlover.site/)                       | [油猴脚本](https://greasyfork.org/zh-CN/scripts/518023-%E6%96%87%E6%AD%A6download-%E7%9B%B4%E9%93%BE%E7%9A%84%E4%BA%91%E7%9B%98%E5%8A%A9%E6%89%8B) | [VIP版](https://pandown.mlover.site/vip/login)               |
+|                      | [网页端](https://pandown.mlover.site/)                       | [油猴脚本](https://greasyfork.org/zh-CN/scripts/518023-%E6%96%87%E6%AD%A6download-%E7%9B%B4%E9%93%BE%E7%9A%84%E4%BA%91%E7%9B%98%E5%8A%A9%E6%89%8B) | [VIP版](https://pandown.mlover.site/vip/login)👍              |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 文件大小限制         | 小于3G                                                       | 不限制                                                       | 不限制                                                       |
 | 下载速度限制         | 不限制                                                       | 不限制                                                       | 不限制                                                       |
+| 下载次数限制         | 5-10次不等                                                   | 5-12次不等                                                   | 不限制                                                       |
 | 是否可以直接获取直链 | 不可以（需搭配[获取直链油猴脚本](https://greasyfork.org/zh-CN/scripts/521641)） | 可以                                                         | 不可以（需搭配[获取直链油猴脚本](https://greasyfork.org/zh-CN/scripts/521641)） |
 
 ## 渲染界面 / Rendering interface
