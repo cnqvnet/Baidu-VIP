@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           6.8
+// @version           6.9
 // @description       2025年1月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -100,8 +100,7 @@
                 href="`+ wwConfig.help_document + `">点击查看 Gopeed 配置教程说明</a>
             </p>
             <p>
-              不限次数 PC 网页稳定版(<a href='`+ wwConfig.monthCard + `' target='_blank'
-                  style='color: #007bff; text-decoration: none;'>购买月卡登录</a>): 
+              不限次数 PC 网页稳定版: 
               <a style="color:red;font-weight:900;" target="_blank"
                 href="https://pandown.mlover.site/">点击前往</a>
             </p>
