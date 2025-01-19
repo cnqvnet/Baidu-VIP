@@ -18,7 +18,7 @@
 
 ### 在线解析网站
 
-- [文武Pandownload](https://pandown.mlover.site/)（[文武Pandownload油猴脚本（点击安装）](https://greasyfork.org/zh-CN/scripts/518023-%E6%96%87%E6%AD%A6download-%E7%9B%B4%E9%93%BE%E7%9A%84%E4%BA%91%E7%9B%98%E5%8A%A9%E6%89%8B)、不限制文件大小，下载速度 10M+/s（[购买月卡](https://fk.wwkejishe.top/buy/23)：不限制大小、速度，最快可达 10M+/s）百度网盘下载如何加速？ [使用教程](https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL)
+- [文武Pandownload](https://pandown.wangdu.site/)（[文武Pandownload油猴脚本（点击安装）](https://greasyfork.org/zh-CN/scripts/518023-%E6%96%87%E6%AD%A6download-%E7%9B%B4%E9%93%BE%E7%9A%84%E4%BA%91%E7%9B%98%E5%8A%A9%E6%89%8B)、不限制文件大小，下载速度 10M+/s（[购买月卡](https://fk.wwkejishe.top/buy/23)：不限制大小、速度，最快可达 10M+/s）百度网盘下载如何加速？ [使用教程](https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL)
 
   ![文武Pandownload下载速度展示](https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171326300.webp)
 
@@ -26,7 +26,7 @@
 
 ### 版本区别 / Version difference
 
-|                      | [网页端](https://pandown.mlover.site/)                       | [油猴脚本](https://greasyfork.org/zh-CN/scripts/518023-%E6%96%87%E6%AD%A6download-%E7%9B%B4%E9%93%BE%E7%9A%84%E4%BA%91%E7%9B%98%E5%8A%A9%E6%89%8B) | [VIP版](https://pandown.mlover.site/vip/login)👍              |
+|                      | [网页端](https://pandown.wangdu.site/)                       | [油猴脚本](https://greasyfork.org/zh-CN/scripts/518023-%E6%96%87%E6%AD%A6download-%E7%9B%B4%E9%93%BE%E7%9A%84%E4%BA%91%E7%9B%98%E5%8A%A9%E6%89%8B) | [VIP版](https://pandown.wangdu.site/vip/login)👍              |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 文件大小限制         | 小于3G                                                       | 不限制                                                       | 不限制                                                       |
 | 下载速度限制         | 不限制                                                       | 不限制                                                       | 不限制                                                       |
