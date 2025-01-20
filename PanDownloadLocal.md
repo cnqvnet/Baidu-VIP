@@ -8,7 +8,7 @@ Github By [@dongyubin](https://github.com/dongyubin/Baidu-VIP)
 
 ## 概述 / Overview
 
-只支持在 [文武Download网页版](https://pandown.mlover.site/) 使用，不支持在百度网盘网页端使用。
+只支持在 [文武Download网页版](https://pandown.wangdu.site/) 使用，不支持在百度网盘网页端使用。
 
 ## 特别提示 / hot tip
 
