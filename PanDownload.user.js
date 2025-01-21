@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           7.0
-// @description       2025年1月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
+// @version           7.1
+// @description       2025年1月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Google Chrome、Microsoft Edge、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
 // @supportURL        https://fk.wwkejishe.top/buy/23
@@ -87,6 +87,9 @@
       year: 'https://fk.wwkejishe.top/buy/26',
       life: 'https://fk.wwkejishe.top/buy/27'
     },
+    liulanqi: {
+      chrome: 'https://www.google.cn/intl/zh-CN/chrome/'
+    },
     monthCard: 'https://fk.wwkejishe.top/buy/23',
     wechatCode: '验证码',
     debug_link: 'https://github.com/dongyubin/Baidu-VIP/issues',
@@ -94,7 +97,8 @@
     help_document: 'https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL'
   };
 
-  const danger_info = `<p style="font-weight:900; text-align: center;">请更新到最新版本再使用</p>
+  const danger_info = `<p style="font-weight:900; text-align: center;">请更新到最新版本再使用，优先选择 <a style="color:red;" target="_blank"
+            href="`+ wwConfig.liulanqi.chrome + `">Google Chrome 浏览器</a> </p>
             <p style="font-weight:900;">
               ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
                 href="`+ wwConfig.help_document + `">点击查看 Gopeed 配置教程说明</a>
@@ -248,15 +252,21 @@
         <h3 class="h2" style="margin-top: 10px;">众所周知，脚本不可能每时每刻都能用。关注不迷路 ~</h3>
       </div>
       <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
-        <p>
+        <p class="layui-text">
         常见问题文档： <a style="color:red;" target="_blank"
             href="`+ wwConfig.help_document + `">点击查看常见问题</a>（能够解决80%的问题）
         </p>
         <p>
         好用的话，请给个好评，带上截图就更好了！<a href="https://greasyfork.org/zh-CN/scripts/518023-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98svip%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E7%9B%B4%E9%93%BE%E7%9A%84%E4%B8%8D%E9%99%90%E9%80%9F%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6pandownload/feedback" target="_blank" style="color: #007bff; text-decoration: none;">点击前往</a>
         </p>
-        <p>
+        <p class="layui-text">
           有问题请带图反馈，我会尽快修复！
+        </p>
+        <h2>常见问题</h2>
+        <p class="layui-text">
+          1、Edge 浏览器 一直显示解析中 / 无法发送到gopeed / 多次提示：验证码错误<br/>
+          答：尝试使用 <a style="color:red;" target="_blank"
+            href="`+ wwConfig.liulanqi.chrome + `">Google Chrome 浏览器</a>
         </p>
         <div class="layui-btn-container">
           <button style="margin-top:10px; border-radius: 8px;" id="goIssues"
