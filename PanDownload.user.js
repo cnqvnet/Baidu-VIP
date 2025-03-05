@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           7.0
-// @description       2025年1月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Microsoft Edge、Google Chrome、Firefox 等浏览器。
+// @version           7.2
+// @description       2025年3月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Google Chrome、Microsoft Edge、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
 // @supportURL        https://fk.wwkejishe.top/buy/23
@@ -39,11 +39,13 @@
 // @grant             GM_setClipboard
 // @grant             GM_notification
 // @grant             GM_info
+// @grant             GM_getValue
+// @grant             GM_setValue
 // @antifeature       ads
 // @antifeature       membership
 // @antifeature       referral-link
-// @downloadURL https://update.greasyfork.org/scripts/518023/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98SVIP%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E4%B8%8B%E8%BD%BD%E7%9B%B4%E9%93%BE%E7%9A%84%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6PanDownload.user.js
-// @updateURL https://update.greasyfork.org/scripts/518023/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98SVIP%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E4%B8%8B%E8%BD%BD%E7%9B%B4%E9%93%BE%E7%9A%84%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6PanDownload.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/518023/2025%E6%9C%80%E6%96%B0%E5%8F%AF%E7%94%A8-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98SVIP%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E7%9B%B4%E9%93%BE%E7%9A%84%E4%B8%8D%E9%99%90%E9%80%9F%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6PanDownload.user.js
+// @updateURL https://update.greasyfork.org/scripts/518023/2025%E6%9C%80%E6%96%B0%E5%8F%AF%E7%94%A8-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98SVIP%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E7%9B%B4%E9%93%BE%E7%9A%84%E4%B8%8D%E9%99%90%E9%80%9F%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6PanDownload.meta.js
 // ==/UserScript==
 (function () {
   'use strict';
@@ -87,6 +89,9 @@
       year: 'https://fk.wwkejishe.top/buy/26',
       life: 'https://fk.wwkejishe.top/buy/27'
     },
+    liulanqi: {
+      chrome: 'https://www.google.cn/intl/zh-CN/chrome/'
+    },
     monthCard: 'https://fk.wwkejishe.top/buy/23',
     wechatCode: '验证码',
     debug_link: 'https://github.com/dongyubin/Baidu-VIP/issues',
@@ -94,13 +99,14 @@
     help_document: 'https://flowus.cn/share/c68e3c55-67e5-460f-b937-7727e0378a34?code=BCRWJL'
   };
 
-  const danger_info = `<p style="font-weight:900; text-align: center;">请更新到最新版本再使用</p>
+  const danger_info = `<p style="font-weight:900; text-align: center;">请更新到最新版本再使用，优先选择 <a style="color:red;" target="_blank"
+            href="`+ wwConfig.liulanqi.chrome + `">Google Chrome 浏览器</a> </p>
             <p style="font-weight:900;">
               ⚠️❗ 一定要先配置好 <a href="`+ wwConfig.gopeed.url + `" target="_blank" style="font-weight: 900;color: #409eff;">` + wwConfig.gopeed.name + `</a> 下载器的 User-Agent、端口、连接数: <a style="color:red;" target="_blank"
                 href="`+ wwConfig.help_document + `">点击查看 Gopeed 配置教程说明</a>
             </p>
             <p>
-              不限次数 PC 网页稳定版: 
+              不限次数 PC 网页稳定版:
               <a style="color:red;font-weight:900;" target="_blank"
                 href="https://pandown.wangdu.site/">点击前往</a>
             </p>
@@ -110,7 +116,7 @@
 
   const pandownload_info = `<li>
               <a href="https://pandown.wangdu.site/vip/login" target="_blank"
-                style="color: #007bff; text-decoration: none;">Pandownload</a>会员卡： 
+                style="color: #007bff; text-decoration: none;">Pandownload</a>会员卡：
                   <a href="`+ wwConfig.pandown.month + `" target="_blank"
                     style="color: #007bff; text-decoration: none;">月卡</a>、
                   <a href="`+ wwConfig.pandown.quarter + `" target="_blank"
@@ -248,15 +254,21 @@
         <h3 class="h2" style="margin-top: 10px;">众所周知，脚本不可能每时每刻都能用。关注不迷路 ~</h3>
       </div>
       <div class="layui-tab-item" style="background-color: #fff; border-radius: 8px; padding: 20px;">
-        <p>
+        <p class="layui-text">
         常见问题文档： <a style="color:red;" target="_blank"
             href="`+ wwConfig.help_document + `">点击查看常见问题</a>（能够解决80%的问题）
         </p>
         <p>
         好用的话，请给个好评，带上截图就更好了！<a href="https://greasyfork.org/zh-CN/scripts/518023-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98svip%E9%AB%98%E9%80%9F%E8%A7%A3%E6%9E%90%E7%9B%B4%E9%93%BE%E7%9A%84%E4%B8%8D%E9%99%90%E9%80%9F%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E6%96%87%E6%AD%A6pandownload/feedback" target="_blank" style="color: #007bff; text-decoration: none;">点击前往</a>
         </p>
-        <p>
+        <p class="layui-text">
           有问题请带图反馈，我会尽快修复！
+        </p>
+        <h2>常见问题</h2>
+        <p class="layui-text">
+          1、Edge 浏览器 一直显示解析中 / 无法发送到gopeed / 多次提示：验证码错误<br/>
+          答：尝试使用 <a style="color:red;" target="_blank"
+            href="`+ wwConfig.liulanqi.chrome + `">Google Chrome 浏览器</a>
         </p>
         <div class="layui-btn-container">
           <button style="margin-top:10px; border-radius: 8px;" id="goIssues"
@@ -289,6 +301,13 @@
           $('#parseWxBtn').on('click', async function () {
             let captchaStr = $('#captcha').val();
             if (captchaStr) {
+              let lastCaptcha = GM_getValue('lastCaptcha', '');
+              if (captchaStr === lastCaptcha) {
+                layer.msg('验证码已使用，请获取新的验证码');
+                return;
+              }
+              GM_setValue('lastCaptcha', captchaStr);
+
               $('#parseWxBtn').html('<p>正在发送中,请稍后...</p>');
               let testDown = await testSendToGopeed();
               if (!testDown) {
@@ -302,7 +321,6 @@
             } else {
               layer.msg('请输入验证码');
             }
-
           });
 
           // 复制 User-Agent 按钮的事件处理
@@ -515,7 +533,7 @@
                 time: 10000,
               });
               if (res.code == 200) {
-                if ((res.data > 100) || (res.data.data == 100 & res.data.vip == 0) || (res.data.data == 100 & res.data.vip == 1)) {
+                if ((res.data > 100) || (res.data.data == 100 & res.data.vip == 0) || (res.data.data == 100 & res.data.vip == 1) || (res.data == 50 || res.data.data == 50)) {
                   let download_url = '';
                   switch (type) {
                     case 1:
@@ -540,9 +558,9 @@
                 else if (res.data == 60 || res.data.data == 60) {
                   init_parse(3);
                 }
-                else if (res.data == 50 || res.data.data == 50) {
-                  init_parse(2);
-                }
+                // else if (res.data == 50 || res.data.data == 50) {
+                //   init_parse(2);
+                // }
                 else if (res.data.data == 100 || res.data.vip == 0) {
                   init_parse(3);
                 }

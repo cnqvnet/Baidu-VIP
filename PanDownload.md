@@ -1,6 +1,8 @@
 # 文武PanDownload
 
-🛒网盘极速下载VIP账号：[立即前往](https://fk.wwkejishe.top/buy/23)
+🛒网盘极速下载VIP账号：[立即前往](https://fk.wwkejishe.top/buy/23)（在维护中，暂时下线）
+
+[百度网盘稳定解析方式](https://flowus.cn/wwkejishe/share/9e5a3fa4-a9eb-4706-9cf0-8eec0d4740c1)
 
 Github By [@dongyubin](https://github.com/dongyubin/Baidu-VIP)
 
