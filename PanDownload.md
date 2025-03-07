@@ -14,7 +14,7 @@ Github By [@dongyubin](https://github.com/dongyubin/Baidu-VIP)
 
 Extract single file high-speed direct link, convenient to use script assistant, support Gopeed multi-threaded download tool. The script is suitable for use in scenarios where the official client cannot be installed (such as school computer rooms, offices, internet cafes and other complex environments). It will not obtain any personal privacy information, and the download link is visible only to you.
 
-- 每天可解析 `5-12` 次
+- 每天总共可解析 `5-12` 次
 - 文件大小不限制
 - 不支持文件夹解析及批量解析
 - 下载速度最快可达 `10M+/s`

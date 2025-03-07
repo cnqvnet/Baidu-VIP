@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              2025最新可用-百度网盘SVIP高速解析直链的不限速下载助手-文武PanDownload
 // @namespace         https://github.com/dongyubin/Baidu-VIP
-// @version           7.2
+// @version           7.3
 // @description       2025年3月持续更新可用，不限制速度的百度网盘SVIP解析高速直链的脚本助手，无视黑号，100%可用，不限制文件大小，下载速度最快可达10M+/s，支持 Gopeed（一键解析）、IDM、NDM 等多线程极速下载工具，支持 Google Chrome、Microsoft Edge、Firefox 等浏览器。
 // @author            dongyubin
 // @homepage          https://fk.wwkejishe.top/buy/23
@@ -72,7 +72,7 @@
     },
     gopeed: {
       name: 'GoPeed',
-      url: 'https://pan.quark.cn/s/0b2e9c6e94b0'
+      url: ''
     },
     ndm: {
       name: 'NDM',
@@ -92,7 +92,7 @@
     liulanqi: {
       chrome: 'https://www.google.cn/intl/zh-CN/chrome/'
     },
-    monthCard: 'https://fk.wwkejishe.top/buy/23',
+    monthCard: 'http://vip.jiufei.com/lin/GI5LG4?refer=1661',
     wechatCode: '验证码',
     debug_link: 'https://github.com/dongyubin/Baidu-VIP/issues',
     authorWechat: 'dyb54188',
@@ -208,7 +208,7 @@
           <img src="https://cdn.wwkejishe.top/wp-cdn-02/2024/202411171346351.webp" style="width:200px;height:200px;">
         </div>
         <h2 class="h2" style="margin-top: 10px;">获取验证码：扫描二维码，复制下面口令并发送</h2>
-        <div>每天随机解析5-10次（<a style="color: red;font-weight:900;" target="_blank"
+        <div>每天总共随机解析5-10次，使用完则提示：今日下载次数已达上限（<a style="color: red;font-weight:900;" target="_blank"
             href="https://www.wangdu.site/software/tools/948.html">无限制获取验证码</a>）
         </div>
         <div>
@@ -353,7 +353,7 @@
       confirmButtonText: '点击下载Gopeed',
       confirmButtonColor: "#dd6b55",
     }).then(function () {
-      openUrl('https://pan.quark.cn/s/0b2e9c6e94b0');
+      openUrl('');
     });
   }
 
@@ -414,7 +414,7 @@
         );
         break;
       case 3:
-        layer.alert('今日下载次数已达上线，请明天再来下载，或者使用快速下载！', {
+        layer.alert('今日下载次数已达上限，请明天再来下载，或者使用快速下载！', {
           title: '提示',
           closeBtn: 0,
           btn: ['确定', '前往快速下载'],
