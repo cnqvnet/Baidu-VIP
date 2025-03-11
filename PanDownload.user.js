@@ -72,7 +72,7 @@
     },
     gopeed: {
       name: 'GoPeed',
-      url: ''
+      url: 'https://pan.quark.cn/s/0b2e9c6e94b0'
     },
     ndm: {
       name: 'NDM',
